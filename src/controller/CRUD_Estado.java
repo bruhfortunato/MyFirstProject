@@ -31,6 +31,7 @@ public class CRUD_Estado extends Conexao{
           listaEstado.add(estado);
        }
         stmt.close();
+        super.FecharConexao();
 
       }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "ERRO..."+e.getMessage(), "Consulta de Estados", 0);
