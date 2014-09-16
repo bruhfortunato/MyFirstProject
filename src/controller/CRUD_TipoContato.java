@@ -30,6 +30,7 @@ public class CRUD_TipoContato extends Conexao{
           listaTipoContato.add(tipo_contato);
        }
         stmt.close();
+        super.FecharConexao();
 
       }catch(SQLException e){
           
