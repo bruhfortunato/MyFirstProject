@@ -33,6 +33,7 @@ public class CRUD_Cidade extends Conexao{
            
              }
         stmt.close();
+        super.FecharConexao();
 
       }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "ERRO..."+ e.getMessage(), "Consulta de Cidades", 0);
@@ -40,9 +41,5 @@ public class CRUD_Cidade extends Conexao{
       return listaCidade;
     }
 
-    @Override
-    public void FecharConexao() {
-        super.FecharConexao(); //To change body of generated methods, choose Tools | Templates.
-    }
- 
+    
 }
