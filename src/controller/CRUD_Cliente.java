@@ -77,8 +77,12 @@ public class CRUD_Cliente extends Conexao{
         }
         return listaCliente;
     }
-        
+
+    @Override
+    public void FecharConexao() {
+        super.FecharConexao(); // fechando a conexão com o banco
     }
-          
-    
+       
+    }
+              
 
