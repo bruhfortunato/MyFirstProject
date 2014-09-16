@@ -39,4 +39,10 @@ public class CRUD_Cidade extends Conexao{
       }
       return listaCidade;
     }
+
+    @Override
+    public void FecharConexao() {
+        super.FecharConexao(); //To change body of generated methods, choose Tools | Templates.
+    }
+ 
 }
