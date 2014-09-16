@@ -95,6 +95,8 @@ public class FormCadTipoLogradouro extends javax.swing.JFrame {
         
         descLogradouro = txtDesc.getText();
         
+        for ()
+        
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     public static void main(String args[]) {
