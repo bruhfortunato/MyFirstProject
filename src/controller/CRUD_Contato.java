@@ -23,6 +23,7 @@ public class CRUD_Contato extends Conexao{
             pst.execute();
             JOptionPane.showMessageDialog(null, "Cadastro OK", "", 1);
             pst.close();
+            super.FecharConexao();
             
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Erro " + e.getMessage(), "Alerta", 2);
