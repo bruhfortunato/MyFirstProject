@@ -29,6 +29,7 @@ public class CRUD_TipoLogradouro extends Conexao{
           listaTipoLogradouro.add(tipoL);
        }
         stmt.close();
+        super.FecharConexao();
 
       }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "ERRO..."+e.getMessage(), "Consulta de Tipo de Logradouro", 0);
