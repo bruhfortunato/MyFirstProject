@@ -734,7 +734,8 @@ public class FormCadCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnADDActionPerformed
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-         
+        
+        /*
         int id=0;
         
         try {
@@ -775,11 +776,12 @@ public class FormCadCliente extends javax.swing.JFrame {
               System.out.println("descricao = " + tpContato);
               int codtpContato = tipoContato_crud.tipoContatoParaCodigo(tpContato);
               System.out.println("codTipoContato = " + codtpContato);
-          }*/
+          }
         } catch (Exception e) {
           JOptionPane.showMessageDialog(null, "Erro no cadastro de Contato");
         }
         
+       */ 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jTextFieldClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldClienteKeyPressed
