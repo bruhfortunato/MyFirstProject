@@ -44,6 +44,7 @@ public class CRUD_Cliente extends Conexao{
             } 
             
         stmt.close();
+        super.FecharConexao();
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERRO..."+e.getMessage(), "Consulta de Cliente", 0);
@@ -70,17 +71,13 @@ public class CRUD_Cliente extends Conexao{
                 listaCliente.add(cli);
                 }
             stmt.close();
+            super.FecharConexao();
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERRO..."+e.getMessage(), "Consulta de Cliente", 0);
       
         }
         return listaCliente;
-    }
-
-    @Override
-    public void FecharConexao() {
-        super.FecharConexao(); // fechando a conexão com o banco
     }
        
     }
