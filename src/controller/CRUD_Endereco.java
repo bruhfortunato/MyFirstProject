@@ -27,6 +27,7 @@ public class CRUD_Endereco extends Conexao{
              
              pst.execute();
              pst.close();
+             super.FecharConexao();
             
         } catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Erro " + e.getMessage(), "Alerta", 2);
