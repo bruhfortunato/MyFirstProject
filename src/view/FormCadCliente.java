@@ -53,6 +53,12 @@ public class FormCadCliente extends javax.swing.JFrame {
         jPanelEnderecoC.setVisible(false);
         jPanelEnderecoR.setVisible(false);
         jTextFieldEmail.setVisible(false);
+        
+        jLabelAptoCom.setVisible(false);
+        jTextFieldNumApto1.setVisible(false);
+        
+        jLabelAptoResid.setVisible(false);
+        jTextFieldNumApto.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -77,6 +83,8 @@ public class FormCadCliente extends javax.swing.JFrame {
         jTableContato = new javax.swing.JTable();
         jFormatTextContato = new javax.swing.JFormattedTextField();
         jTextFieldEmail = new javax.swing.JTextField();
+        btnSubt = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanelTipoEnd = new javax.swing.JPanel();
         rButtonResidencial = new javax.swing.JRadioButton();
         rButtonComercial = new javax.swing.JRadioButton();
@@ -86,7 +94,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        jLabelAptoResid = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jTextFieldEndereco1 = new javax.swing.JTextField();
@@ -107,7 +115,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabelAptoCom = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jTextFieldEndereco = new javax.swing.JTextField();
@@ -225,7 +233,7 @@ public class FormCadCliente extends javax.swing.JFrame {
             }
         });
         jPanelContato.add(btnADD);
-        btnADD.setBounds(360, 30, 41, 30);
+        btnADD.setBounds(360, 30, 40, 30);
 
         jTableContato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -260,7 +268,15 @@ public class FormCadCliente extends javax.swing.JFrame {
         jPanelContato.add(jTextFieldEmail);
         jTextFieldEmail.setBounds(200, 30, 140, 30);
 
-        getContentPane().add(jPanelContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 420, 250));
+        btnSubt.setText("Excluir ");
+        jPanelContato.add(btnSubt);
+        btnSubt.setBounds(70, 230, 80, 20);
+
+        jButton1.setText("Excluir Tudo");
+        jPanelContato.add(jButton1);
+        jButton1.setBounds(200, 230, 110, 23);
+
+        getContentPane().add(jPanelContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 470, 260));
 
         jPanelTipoEnd.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Endereço"));
 
@@ -315,7 +331,7 @@ public class FormCadCliente extends javax.swing.JFrame {
 
         jLabel17.setText("Complemento: ");
 
-        jLabel18.setText("Apto:");
+        jLabelAptoResid.setText("Apto:");
 
         jLabel19.setText("Bairro:");
 
@@ -349,6 +365,11 @@ public class FormCadCliente extends javax.swing.JFrame {
         cBoxTipoLogradouro1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE" }));
 
         cBoxComplemento1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "APARTAMENTO", "CASA" }));
+        cBoxComplemento1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cBoxComplemento1ActionPerformed(evt);
+            }
+        });
 
         try {
             jFormattedTextFieldCep1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
@@ -392,7 +413,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                     .addGroup(jPanelEnderecoRLayout.createSequentialGroup()
                         .addComponent(cBoxComplemento1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(jLabel18)
+                        .addComponent(jLabelAptoResid)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldNumApto1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelEnderecoRLayout.createSequentialGroup()
@@ -413,7 +434,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                     .addComponent(cBoxTipoLogradouro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(cBoxComplemento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18)
+                    .addComponent(jLabelAptoResid)
                     .addComponent(jTextFieldNumApto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelEnderecoRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -485,7 +506,7 @@ public class FormCadCliente extends javax.swing.JFrame {
 
         jLabel9.setText("Complemento: ");
 
-        jLabel10.setText("Apto:");
+        jLabelAptoCom.setText("Apto:");
 
         jLabel11.setText("Bairro:");
 
@@ -519,6 +540,11 @@ public class FormCadCliente extends javax.swing.JFrame {
         cBoxTipoLogradouro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE" }));
 
         cBoxComplemento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "APARTAMENTO", "CASA" }));
+        cBoxComplemento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cBoxComplementoActionPerformed(evt);
+            }
+        });
 
         try {
             jFormattedTextFieldCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
@@ -548,7 +574,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cBoxComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(jLabel10)
+                        .addComponent(jLabelAptoCom)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldNumApto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelEnderecoCLayout.createSequentialGroup()
@@ -581,7 +607,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                     .addComponent(cBoxTipoLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(cBoxComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
+                    .addComponent(jLabelAptoCom)
                     .addComponent(jTextFieldNumApto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelEnderecoCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -815,6 +841,29 @@ public class FormCadCliente extends javax.swing.JFrame {
     private void jTextFieldBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBairroActionPerformed
         jTextFieldBairro.setText(jTextFieldBairro.getText().toUpperCase());
     }//GEN-LAST:event_jTextFieldBairroActionPerformed
+
+    private void cBoxComplemento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxComplemento1ActionPerformed
+    
+        if (cBoxComplemento1.getSelectedItem().toString().equalsIgnoreCase("APARTAMENTO")){
+            jLabelAptoResid.setVisible(true);
+            jTextFieldNumApto1.setVisible(true);
+        }else{
+            jLabelAptoResid.setVisible(false);
+            jTextFieldNumApto1.setVisible(false);
+            
+        }
+
+    }//GEN-LAST:event_cBoxComplemento1ActionPerformed
+
+    private void cBoxComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxComplementoActionPerformed
+        if (cBoxComplemento.getSelectedItem().toString().equalsIgnoreCase("APARTAMENTO")){
+            jLabelAptoCom.setVisible(true);
+            jTextFieldNumApto.setVisible(true);
+        }else{
+            jLabelAptoCom.setVisible(false);
+            jTextFieldNumApto.setVisible(false);
+        }
+    }//GEN-LAST:event_cBoxComplementoActionPerformed
     
     public void buscarCidadesResidencial(){
         cBoxCidade1.removeAllItems();
@@ -921,6 +970,7 @@ public class FormCadCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnADD;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSubt;
     private javax.swing.JButton btnVoltar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -933,12 +983,12 @@ public class FormCadCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox cBoxTipoLogradouro1;
     private javax.swing.JComboBox cBoxUF;
     private javax.swing.JComboBox cBoxUF1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFormattedTextField jFormatTextContato;
     private javax.swing.JFormattedTextField jFormattedTextCpfCNPJ;
     private javax.swing.JFormattedTextField jFormattedTextFieldCep;
     private javax.swing.JFormattedTextField jFormattedTextFieldCep1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -946,7 +996,6 @@ public class FormCadCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -956,6 +1005,8 @@ public class FormCadCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelAptoCom;
+    private javax.swing.JLabel jLabelAptoResid;
     private javax.swing.JPanel jPanelCli;
     private javax.swing.JPanel jPanelCliente;
     private javax.swing.JPanel jPanelContato;
