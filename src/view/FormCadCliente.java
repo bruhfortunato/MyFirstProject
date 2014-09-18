@@ -23,22 +23,37 @@ import model.Tipo_Logradouro;
 
 public class FormCadCliente extends javax.swing.JFrame {
 
+    int linha;
     DefaultTableModel tabela = new DefaultTableModel();
     CRUD_Cliente crudCli = new CRUD_Cliente();
     CRUD_TipoContato_Contato crudTpc_contato = new CRUD_TipoContato_Contato();
     
     List<TipoContato_Contato> listaContatoTabela = new ArrayList<TipoContato_Contato>();
       
-    public void preencherTabelaContato(String tipocontato, String contato){
-        
+    public void preencherTabelaContato1(String tipocontato, String contato){
+           
     tabela = (DefaultTableModel) jTableContato.getModel();
                         
-                
+   
                 tabela.addRow(new Object[]{
-                    tipocontato, contato
-                 });
-                   
+                      tipocontato, contato
+                 });                  
+                                 
             }
+    
+    
+    public void preencherTabelaContato(List<TipoContato_Contato> listaContatoTabela){
+        
+    tabela = (DefaultTableModel) jTableContato.getModel();
+    tabela.setRowCount(0);
+              for(int i=0; i<listaContatoTabela.size(); i++)  {
+                tabela.addRow(new Object[]{
+                    listaContatoTabela.get(i).getDescTipo(),
+                    listaContatoTabela.get(i).getDescContato()                    
+                 });                  
+              }                   
+            }
+ 
     public FormCadCliente() {
         
         initComponents();
@@ -50,15 +65,16 @@ public class FormCadCliente extends javax.swing.JFrame {
         buscarTipoContato();
         buscarTipoLogradouro();
         
+        
         jPanelEnderecoC.setVisible(false);
         jPanelEnderecoR.setVisible(false);
         jTextFieldEmail.setVisible(false);
         
-        jLabelAptoCom.setVisible(false);
-        jTextFieldNumApto1.setVisible(false);
+        jLabelAptoCom.setEnabled(false);
+        jTextFieldNumApto1.setEnabled(false);
         
-        jLabelAptoResid.setVisible(false);
-        jTextFieldNumApto.setVisible(false);
+        jLabelAptoResid.setEnabled(false);
+        jTextFieldNumApto.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -243,6 +259,11 @@ public class FormCadCliente extends javax.swing.JFrame {
                 "Tipo de Contato", "Contato"
             }
         ));
+        jTableContato.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableContatoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableContato);
         if (jTableContato.getColumnModel().getColumnCount() > 0) {
             jTableContato.getColumnModel().getColumn(1).setMinWidth(140);
@@ -269,10 +290,20 @@ public class FormCadCliente extends javax.swing.JFrame {
         jTextFieldEmail.setBounds(200, 30, 140, 30);
 
         btnSubt.setText("Excluir ");
+        btnSubt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubtActionPerformed(evt);
+            }
+        });
         jPanelContato.add(btnSubt);
         btnSubt.setBounds(70, 230, 80, 20);
 
         jButton1.setText("Excluir Tudo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanelContato.add(jButton1);
         jButton1.setBounds(200, 230, 110, 23);
 
@@ -364,7 +395,7 @@ public class FormCadCliente extends javax.swing.JFrame {
 
         cBoxTipoLogradouro1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE" }));
 
-        cBoxComplemento1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "APARTAMENTO", "CASA" }));
+        cBoxComplemento1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE", "APARTAMENTO", "CASA" }));
         cBoxComplemento1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cBoxComplemento1ActionPerformed(evt);
@@ -539,7 +570,7 @@ public class FormCadCliente extends javax.swing.JFrame {
 
         cBoxTipoLogradouro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE" }));
 
-        cBoxComplemento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "APARTAMENTO", "CASA" }));
+        cBoxComplemento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE", "APARTAMENTO", "CASA" }));
         cBoxComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cBoxComplementoActionPerformed(evt);
@@ -753,15 +784,17 @@ public class FormCadCliente extends javax.swing.JFrame {
             
             listaContatoTabela.add(tp_contato);
             
-            preencherTabelaContato(tp_contato.getDescTipo(), tp_contato.getDescContato());
+            preencherTabelaContato1(tp_contato.getDescTipo(), tp_contato.getDescContato());
+         
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro no cadastro de Contato");
         }
+        
     }//GEN-LAST:event_btnADDActionPerformed
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
-        /*
+        
         int id=0;
         
         try {
@@ -845,11 +878,11 @@ public class FormCadCliente extends javax.swing.JFrame {
     private void cBoxComplemento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxComplemento1ActionPerformed
     
         if (cBoxComplemento1.getSelectedItem().toString().equalsIgnoreCase("APARTAMENTO")){
-            jLabelAptoResid.setVisible(true);
-            jTextFieldNumApto1.setVisible(true);
+            jLabelAptoResid.setEnabled(true);
+            jTextFieldNumApto1.setEnabled(true);
         }else{
-            jLabelAptoResid.setVisible(false);
-            jTextFieldNumApto1.setVisible(false);
+            jLabelAptoResid.setEnabled(false);
+            jTextFieldNumApto1.setEnabled(false);
             
         }
 
@@ -857,13 +890,27 @@ public class FormCadCliente extends javax.swing.JFrame {
 
     private void cBoxComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxComplementoActionPerformed
         if (cBoxComplemento.getSelectedItem().toString().equalsIgnoreCase("APARTAMENTO")){
-            jLabelAptoCom.setVisible(true);
-            jTextFieldNumApto.setVisible(true);
+            jLabelAptoCom.setEnabled(true);
+            jTextFieldNumApto.setEnabled(true);
         }else{
-            jLabelAptoCom.setVisible(false);
-            jTextFieldNumApto.setVisible(false);
+            jLabelAptoCom.setEnabled(false);
+            jTextFieldNumApto.setEnabled(false);
         }
     }//GEN-LAST:event_cBoxComplementoActionPerformed
+
+    private void btnSubtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubtActionPerformed
+        listaContatoTabela.remove(linha); //removendo a linha selecionada
+        preencherTabelaContato(listaContatoTabela);
+         
+    }//GEN-LAST:event_btnSubtActionPerformed
+
+    private void jTableContatoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableContatoMouseClicked
+        linha = jTableContato.getSelectedRow(); //pegando a linha selecionada
+    }//GEN-LAST:event_jTableContatoMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        listaContatoTabela.removeAll(listaContatoTabela); //apagando todos os dados
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     public void buscarCidadesResidencial(){
         cBoxCidade1.removeAllItems();
