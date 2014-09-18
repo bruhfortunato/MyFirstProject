@@ -29,9 +29,8 @@ public class FormCadCliente extends javax.swing.JFrame {
     CRUD_TipoContato_Contato crudTpc_contato = new CRUD_TipoContato_Contato();
     
     List<TipoContato_Contato> listaContatoTabela = new ArrayList<TipoContato_Contato>();
-      
-    public void preencherTabelaContato1(String tipocontato, String contato){
-           
+      //utilizado para incluir a lista na tabela linha por linha
+    public void preencherTabelaContato1(String tipocontato, String contato){ 
     tabela = (DefaultTableModel) jTableContato.getModel();
                         
    
@@ -41,7 +40,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                                  
             }
     
-    
+    //utilizado para excluir a linha inteira ou a lista toda
     public void preencherTabelaContato(List<TipoContato_Contato> listaContatoTabela){
         
     tabela = (DefaultTableModel) jTableContato.getModel();
@@ -910,6 +909,7 @@ public class FormCadCliente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         listaContatoTabela.removeAll(listaContatoTabela); //apagando todos os dados
+        preencherTabelaContato(listaContatoTabela);
     }//GEN-LAST:event_jButton1ActionPerformed
     
     public void buscarCidadesResidencial(){
