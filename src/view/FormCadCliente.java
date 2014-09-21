@@ -1,4 +1,3 @@
-
 package view;
 
 import controller.CRUD_Cidade;
@@ -10,6 +9,7 @@ import controller.CRUD_TipoContato_Contato;
 import controller.CRUD_TipoLogradouro;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cidade;
@@ -26,14 +26,14 @@ public class FormCadCliente extends javax.swing.JFrame {
     int linha;
     DefaultTableModel tabela = new DefaultTableModel();
     CRUD_Cliente crudCli = new CRUD_Cliente();
-    CRUD_TipoContato_Contato crudTpc_contato = new CRUD_TipoContato_Contato();
+    CRUD_TipoContato_Contato tpContato_crud = new CRUD_TipoContato_Contato(); 
+    CRUD_Contato crudCont = new CRUD_Contato();
     
     List<TipoContato_Contato> listaContatoTabela = new ArrayList<TipoContato_Contato>();
-      //utilizado para incluir a lista na tabela linha por linha
+    
+    //utilizado para incluir a lista na tabela linha por linha
     public void preencherTabelaContato1(String tipocontato, String contato){ 
     tabela = (DefaultTableModel) jTableContato.getModel();
-                        
-   
                 tabela.addRow(new Object[]{
                       tipocontato, contato
                  });                  
@@ -679,6 +679,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         cBoxCidade.setSelectedIndex(0);
         cBoxComplemento.setSelectedIndex(0);
        
+        tabela.setRowCount(0);
         buttonGroup1.clearSelection();
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -707,7 +708,7 @@ public class FormCadCliente extends javax.swing.JFrame {
       try {  
                  jTextFieldEmail.setVisible(false);
                  jFormatTextContato.setVisible(true);
-                jFormatTextContato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));  
+                 jFormatTextContato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));  
            } catch (java.text.ParseException ex) {  
                  System.out.println(ex.getMessage());  
            }
@@ -774,8 +775,8 @@ public class FormCadCliente extends javax.swing.JFrame {
             }
             if((cBoxTipoContato.getSelectedItem().toString().equals("CELULAR")) ||
                (cBoxTipoContato.getSelectedItem().toString().equals("FAX")) ||
-               (cBoxTipoContato.getSelectedItem().toString().equals("TELEFONE FIXO")) ||
-               (cBoxTipoContato.getSelectedItem().toString().equals("TELEFONE MOVEL"))){
+               (cBoxTipoContato.getSelectedItem().toString().equals("TELEFONE COMERCIAL")) ||
+               (cBoxTipoContato.getSelectedItem().toString().equals("TELEFONE RESIDENCIAL"))){
                 
                 tp_contato.setDescContato(jFormatTextContato.getText());
                 //idTipoContato = tp_contato.getId_tipo_contato();
@@ -784,24 +785,23 @@ public class FormCadCliente extends javax.swing.JFrame {
             listaContatoTabela.add(tp_contato);
             
             preencherTabelaContato1(tp_contato.getDescTipo(), tp_contato.getDescContato());
-         
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro no cadastro de Contato");
-        }
+        
+    }   
         
     }//GEN-LAST:event_btnADDActionPerformed
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
-        
         int id=0;
         
         try {
-            Cliente cli = new Cliente();
+          Cliente cli = new Cliente();
           
           cli.setNome_cliente(jTextFieldCliente.getText());
           cli.setCpf_cnpj(jFormattedTextCpfCNPJ.getValue().toString());
           
+          //escrever no TipoPessoa no BD o q foi selecionado
           if(rButtonFisica.isSelected()){
               cli.setTipo_pessoa("FISICA");
           }
@@ -809,37 +809,30 @@ public class FormCadCliente extends javax.swing.JFrame {
               cli.setTipo_pessoa("JURIDICA");
           }
           
-          CRUD_Cliente clienteCrud = new CRUD_Cliente();
-          clienteCrud.inserir(cli);
-
-          CRUD_TipoContato_Contato tpcContato_crud = new CRUD_TipoContato_Contato(); 
-          List<TipoContato_Contato> listaTpcContato = tpcContato_crud.listar();
+          crudCli.inserir(cli);
+          
+          //List<TipoContato_Contato> listaTpc = tpContato_crud.listar();
           
           //Popular a lista com as informações da tabela
+          Contato contato = new Contato();
+          CRUD_Contato contato_crud = new CRUD_Contato();    
+          for ( int i=0; i <= listaContatoTabela.size(); i++){
+              id = crudCli.buscarUltimoID();
+
+              // declarando o id_tipo_contato, pegando da lista
+              int tpContato = listaContatoTabela.get(i).getId_tipo_contato();
+              String descContato = listaContatoTabela.get(i).getDescContato();
+              
+              contato.setId_cliente(id);
+              contato.setId_tipo_contato(tpContato);
+              contato.setDescricao(descContato);
+              
+              contato_crud.inserir(contato);
+          }
           
-          for ( int i=0; i < listaContatoTabela.size(); i++){
-              
-              Tipo_Contato t = new Tipo_Contato();
-              String tpContato = listaDaTabela.get(i).getDescricao();
-              int codTpContato = tipoContato_crud.tipoContatoParaCodigo(tpContato);
-              
-              t.setId_tipo_contato(codTpContato);
-              t.setDescricao(listaDaTabela.get(i).getDescricao());
-              
-              tipoContato_crud.
-          }
-          for(int i = 0; i<listaContatoTabela.size(); i++){
-              
-              String tpContato = listaContatoTabela.get(i).getDescricao();
-              System.out.println("descricao = " + tpContato);
-              int codtpContato = tipoContato_crud.tipoContatoParaCodigo(tpContato);
-              System.out.println("codTipoContato = " + codtpContato);
-          }
         } catch (Exception e) {
           JOptionPane.showMessageDialog(null, "Erro no cadastro de Contato");
         }
-        
-       */ 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jTextFieldClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldClienteKeyPressed
