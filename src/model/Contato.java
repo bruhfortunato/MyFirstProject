@@ -39,7 +39,7 @@ public class Contato {
         this.descricao = descricao;
     }
 
-    public boolean isFg_ativo() {
+    public boolean getFg_ativo() {
         return fg_ativo;
     }
 
