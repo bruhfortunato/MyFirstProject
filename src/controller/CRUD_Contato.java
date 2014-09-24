@@ -11,12 +11,12 @@ import model.Tipo_Logradouro;
 
 public class CRUD_Contato extends Conexao{
     
-    public void inserir(Contato contato) {
+    public void inserir(Contato contato, Integer id) {
         try{
             PreparedStatement pst = con.prepareStatement("INSERT INTO tb_contato " +
                        "(id_tipo_contato, id_cliente, descricao, fg_ativo) VALUES (?,?,?,?)");
             pst.setInt(1, contato.getId_tipo_contato());
-            pst.setInt(2, contato.getId_cliente());
+            pst.setInt(2, id);
             pst.setString(3, contato.getDescricao());
             pst.setBoolean(4, true);
             
