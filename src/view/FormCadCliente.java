@@ -20,16 +20,21 @@ import model.TipoContato_Contato;
 import model.Tipo_Contato;
 import model.Tipo_Logradouro;
 
-
 public class FormCadCliente extends javax.swing.JFrame {
 
+    //instanciando as classes e declarando variáveis 
     int linha;
     DefaultTableModel tabela = new DefaultTableModel();
+    
+    CRUD_Contato contato_crud = new CRUD_Contato();    
+    Contato contato = new Contato();
     CRUD_Cliente crudCli = new CRUD_Cliente();
     CRUD_TipoContato_Contato tpContato_crud = new CRUD_TipoContato_Contato(); 
-    CRUD_Contato crudCont = new CRUD_Contato();
+    
+    //CRUD_Contato crudCont = new CRUD_Contato();
     
     List<TipoContato_Contato> listaContatoTabela = new ArrayList<TipoContato_Contato>();
+    List<Contato> listaContatos = new ArrayList<Contato>();
     
     //utilizado para incluir a lista na tabela linha por linha
     public void preencherTabelaContato1(String tipocontato, String contato){ 
@@ -295,7 +300,7 @@ public class FormCadCliente extends javax.swing.JFrame {
             }
         });
         jPanelContato.add(btnSubt);
-        btnSubt.setBounds(70, 230, 80, 20);
+        btnSubt.setBounds(80, 220, 90, 30);
 
         jButton1.setText("Excluir Tudo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -304,7 +309,7 @@ public class FormCadCliente extends javax.swing.JFrame {
             }
         });
         jPanelContato.add(jButton1);
-        jButton1.setBounds(200, 230, 110, 23);
+        jButton1.setBounds(190, 220, 110, 30);
 
         getContentPane().add(jPanelContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 470, 260));
 
@@ -793,8 +798,6 @@ public class FormCadCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnADDActionPerformed
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        int id=0;
-        
         try {
           Cliente cli = new Cliente();
           
@@ -811,28 +814,35 @@ public class FormCadCliente extends javax.swing.JFrame {
           
           crudCli.inserir(cli);
           
-          //List<TipoContato_Contato> listaTpc = tpContato_crud.listar();
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(null, "Erro no cadastro de Cliente");
+        }
           
           //Popular a lista com as informações da tabela
-          Contato contato = new Contato();
-          CRUD_Contato contato_crud = new CRUD_Contato();    
-          for ( int i=0; i <= listaContatoTabela.size(); i++){
-              id = crudCli.buscarUltimoID();
-
-              // declarando o id_tipo_contato, pegando da lista
-              int tpContato = listaContatoTabela.get(i).getId_tipo_contato();
-              String descContato = listaContatoTabela.get(i).getDescContato();
+        
+        try {
+            for ( int i=0; i <= listaContatoTabela.size(); i++){
+                contato = new Contato();
+                // declarando o id_tipo_contato, pegando da lista
+                  int tpContato = listaContatoTabela.get(i).getId_tipo_contato();
+                  String descContato = listaContatoTabela.get(i).getDescContato();
               
-              contato.setId_cliente(id);
-              contato.setId_tipo_contato(tpContato);
-              contato.setDescricao(descContato);
+                  contato.setId_tipo_contato(tpContato);
+                  int id = crudCli.buscarUltimoID();
+                  contato.setDescricao(descContato);
+                  contato.setFg_ativo(true);
               
-              contato_crud.inserir(contato);
-          }
-          
+              contato_crud.inserir(contato, id);
+           }
+                  
         } catch (Exception e) {
-          JOptionPane.showMessageDialog(null, "Erro no cadastro de Contato");
+          JOptionPane.showMessageDialog(null, "Erro no cadastro do Contato");
         }
+        
+              
+          
+          
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jTextFieldClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldClienteKeyPressed
