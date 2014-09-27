@@ -716,8 +716,7 @@ public class FormCadCliente extends javax.swing.JFrame {
             Cidade cidade = new Cidade();
             Cliente_Endereco cli_end = new Cliente_Endereco();
             
-            tpLogradouro.setId_tipo_logradouro(cBoxTipoLogradouro.getSelectedObjects());
-            
+                        
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed

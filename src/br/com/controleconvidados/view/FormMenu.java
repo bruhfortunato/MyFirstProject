@@ -1,6 +1,6 @@
 package br.com.controleconvidados.view;
 
-import br.com.controleconvidados.controller.Conexao;
+import br.com.controleconvidados.utils.Conexao;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
