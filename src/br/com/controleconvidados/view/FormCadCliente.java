@@ -119,14 +119,10 @@ public class FormCadCliente extends javax.swing.JFrame {
         cBoxTipoLogradouro = new javax.swing.JComboBox();
         cBoxComplemento = new javax.swing.JComboBox();
         jFormattedTextFieldCep = new javax.swing.JFormattedTextField();
-        jToolBarCliente = new javax.swing.JToolBar();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
+        jToolBar1 = new javax.swing.JToolBar();
         btnSalvar = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
         btnNovo = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JToolBar.Separator();
         btnVoltar = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Cliente");
@@ -188,10 +184,9 @@ public class FormCadCliente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanelCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 290, 160));
+        getContentPane().add(jPanelCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 290, 160));
 
         jPanelContato.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Contato"));
-        jPanelContato.setLayout(null);
 
         cBoxTipoContato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE" }));
         cBoxTipoContato.addActionListener(new java.awt.event.ActionListener() {
@@ -199,17 +194,13 @@ public class FormCadCliente extends javax.swing.JFrame {
                 cBoxTipoContatoActionPerformed(evt);
             }
         });
-        jPanelContato.add(cBoxTipoContato);
-        cBoxTipoContato.setBounds(16, 28, 160, 30);
 
-        btnADD.setText("+");
+        btnADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/add-button-th.png"))); // NOI18N
         btnADD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnADDActionPerformed(evt);
             }
         });
-        jPanelContato.add(btnADD);
-        btnADD.setBounds(360, 30, 40, 30);
 
         jTableContato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -230,24 +221,17 @@ public class FormCadCliente extends javax.swing.JFrame {
             jTableContato.getColumnModel().getColumn(1).setMaxWidth(140);
         }
 
-        jPanelContato.add(jScrollPane1);
-        jScrollPane1.setBounds(50, 80, 320, 140);
-
         try {
             jFormatTextContato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jPanelContato.add(jFormatTextContato);
-        jFormatTextContato.setBounds(200, 30, 140, 28);
 
         jTextFieldEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldEmailKeyReleased(evt);
             }
         });
-        jPanelContato.add(jTextFieldEmail);
-        jTextFieldEmail.setBounds(200, 30, 140, 30);
 
         btnSubt.setText("Excluir ");
         btnSubt.addActionListener(new java.awt.event.ActionListener() {
@@ -255,8 +239,6 @@ public class FormCadCliente extends javax.swing.JFrame {
                 btnSubtActionPerformed(evt);
             }
         });
-        jPanelContato.add(btnSubt);
-        btnSubt.setBounds(80, 220, 90, 30);
 
         jButton1.setText("Excluir Tudo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -264,10 +246,50 @@ public class FormCadCliente extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanelContato.add(jButton1);
-        jButton1.setBounds(190, 220, 110, 30);
 
-        getContentPane().add(jPanelContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 470, 260));
+        javax.swing.GroupLayout jPanelContatoLayout = new javax.swing.GroupLayout(jPanelContato);
+        jPanelContato.setLayout(jPanelContatoLayout);
+        jPanelContatoLayout.setHorizontalGroup(
+            jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelContatoLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(cBoxTipoContato, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addGroup(jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormatTextContato, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(btnADD, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanelContatoLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanelContatoLayout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(btnSubt, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanelContatoLayout.setVerticalGroup(
+            jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelContatoLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cBoxTipoContato, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelContatoLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jFormatTextContato, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnADD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSubt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        getContentPane().add(jPanelContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 470, 260));
 
         jPanelCli.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoa"));
 
@@ -301,14 +323,14 @@ public class FormCadCliente extends javax.swing.JFrame {
         jPanelCliLayout.setVerticalGroup(
             jPanelCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCliLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rButtonFisica)
                     .addComponent(rButtonJuridica))
-                .addGap(19, 19, 19))
+                .addGap(38, 38, 38))
         );
 
-        getContentPane().add(jPanelCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 290, 80));
+        getContentPane().add(jPanelCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 290, 80));
 
         jPanelEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Endereço"));
 
@@ -443,39 +465,37 @@ public class FormCadCliente extends javax.swing.JFrame {
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanelEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 870, 160));
+        getContentPane().add(jPanelEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 870, 160));
 
-        jToolBarCliente.setRollover(true);
-        jToolBarCliente.add(jSeparator3);
+        jToolBar1.setRollover(true);
+        jToolBar1.setToolTipText("");
+        jToolBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        btnSalvar.setText("Salvar Cliente");
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/copia ok.png"))); // NOI18N
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
             }
         });
-        jToolBarCliente.add(btnSalvar);
-        jToolBarCliente.add(jSeparator1);
+        jToolBar1.add(btnSalvar);
 
-        btnNovo.setText("Novo");
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/add-1-icon - Copia.png"))); // NOI18N
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
             }
         });
-        jToolBarCliente.add(btnNovo);
-        jToolBarCliente.add(jSeparator2);
+        jToolBar1.add(btnNovo);
 
-        btnVoltar.setText("Voltar");
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/copia voltar.jpg"))); // NOI18N
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
             }
         });
-        jToolBarCliente.add(btnVoltar);
-        jToolBarCliente.add(jSeparator4);
+        jToolBar1.add(btnVoltar);
 
-        getContentPane().add(jToolBarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 990, 70));
+        getContentPane().add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -806,10 +826,6 @@ public class FormCadCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelContato;
     private javax.swing.JPanel jPanelEndereco;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JTable jTableContato;
     private javax.swing.JTextField jTextFieldBairro;
     private javax.swing.JTextField jTextFieldCliente;
@@ -817,7 +833,7 @@ public class FormCadCliente extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldEndereco;
     private javax.swing.JTextField jTextFieldNum;
     private javax.swing.JTextField jTextFieldNumApto;
-    private javax.swing.JToolBar jToolBarCliente;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JRadioButton rButtonFisica;
     private javax.swing.JRadioButton rButtonJuridica;
     // End of variables declaration//GEN-END:variables

@@ -14,7 +14,7 @@ public class Conexao {
     static String url = "jdbc:postgresql://localhost/CONTROLE_CONVIDADOS";
     
     public Conexao(){
-        conectar();
+        
     }
     
     public void conectar(){
