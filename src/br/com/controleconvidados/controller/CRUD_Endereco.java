@@ -3,6 +3,7 @@ package br.com.controleconvidados.controller;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import br.com.controleconvidados.model.Endereco;
+import br.com.controleconvidados.utils.Conexao;
 
 public class CRUD_Endereco {
 Conexao c = new Conexao();

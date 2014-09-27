@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import br.com.controleconvidados.model.TipoContato_Contato;
+import br.com.controleconvidados.utils.Conexao;
 
 public class CRUD_TipoContato_Contato {
     Conexao c = new Conexao();

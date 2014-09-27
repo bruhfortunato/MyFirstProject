@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import br.com.controleconvidados.model.Cidade;
-import br.com.controleconvidados.model.Estado;
+import br.com.controleconvidados.utils.Conexao;
 
 public class CRUD_Cidade {
     Conexao c = new Conexao();

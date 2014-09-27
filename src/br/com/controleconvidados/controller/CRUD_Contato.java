@@ -3,11 +3,10 @@ package br.com.controleconvidados.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import br.com.controleconvidados.model.Contato;
-import br.com.controleconvidados.model.Tipo_Logradouro;
+import br.com.controleconvidados.utils.Conexao;
 
 public class CRUD_Contato {
     

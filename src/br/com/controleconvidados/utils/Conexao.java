@@ -10,7 +10,7 @@ public class Conexao {
     
     public Connection con;
     
-    private static String url = ""; //localhost/controle_convidados";
+    private static String url = "jdbc:postgresql://localhost:5432/CONTROLE_CONVIDADOS"; //localhost/controle_convidados";
     Properties props ;
     
 
@@ -19,15 +19,15 @@ public class Conexao {
          
           StringBuilder sb = new StringBuilder();
           this.url = sb.append("jdbc:postgresql://")
-                 .append(loader.getValue("server"))
+                 .append(loader.getValue("localhost"))
                  .append(":")
-                 .append(loader.getValue("port"))
+                 .append(loader.getValue("5432"))
                  .append("/")
-                 .append(loader.getValue("database")).toString();
+                 .append(loader.getValue("CONTROLE_CONVIDADOS")).toString();
           
           props = new Properties();
-          props.setProperty("user",loader.getValue("username"));
-          props.setProperty("password",loader.getValue("password"));
+          props.setProperty("user",loader.getValue("postgres"));
+          props.setProperty("password",loader.getValue("polly1105"));
 
     }
     

@@ -4,6 +4,7 @@ import br.com.controleconvidados.model.Cliente_Endereco;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import br.com.controleconvidados.utils.Conexao;
 
 public class CRUD_Cliente_Endereco {
     Conexao c = new Conexao();

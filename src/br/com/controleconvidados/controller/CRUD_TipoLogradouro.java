@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import br.com.controleconvidados.model.Tipo_Logradouro;
+import br.com.controleconvidados.utils.Conexao;
 
 public class CRUD_TipoLogradouro{
    Conexao c = new Conexao();
