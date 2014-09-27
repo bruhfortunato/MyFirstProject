@@ -1,7 +1,6 @@
 package br.com.controleconvidados.controller;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import javax.swing.JOptionPane;
 import br.com.controleconvidados.model.Endereco;
 

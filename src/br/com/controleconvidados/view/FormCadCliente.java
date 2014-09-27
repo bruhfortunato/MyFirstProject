@@ -16,7 +16,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import br.com.controleconvidados.model.Cidade;
 import br.com.controleconvidados.model.Cliente;
+import br.com.controleconvidados.model.Cliente_Endereco;
 import br.com.controleconvidados.model.Contato;
+import br.com.controleconvidados.model.Endereco;
 import br.com.controleconvidados.model.Estado;
 import br.com.controleconvidados.model.TipoContato_Contato;
 import br.com.controleconvidados.model.Tipo_Contato;
@@ -682,9 +684,7 @@ public class FormCadCliente extends javax.swing.JFrame {
             if(rButtonJuridica.isSelected()){
                 cli.setTipo_pessoa("JURIDICA");
             }
-
             crudCli.inserir(cli);
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro de Cliente");
         }
@@ -709,7 +709,17 @@ public class FormCadCliente extends javax.swing.JFrame {
         }
 
         //Cadastro de Endereços
-
+        try {
+            Endereco end = new Endereco();
+            Tipo_Logradouro tpLogradouro = new Tipo_Logradouro();
+            Estado uf = new Estado();
+            Cidade cidade = new Cidade();
+            Cliente_Endereco cli_end = new Cliente_Endereco();
+            
+            tpLogradouro.setId_tipo_logradouro(cBoxTipoLogradouro.getSelectedObjects());
+            
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
     
     public void buscarCidades(){
