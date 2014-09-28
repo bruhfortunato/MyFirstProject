@@ -2,17 +2,16 @@ package br.com.controleconvidados.view;
 
 import br.com.controleconvidados.controller.CRUD_Cidade;
 import br.com.controleconvidados.controller.CRUD_Cliente;
+import br.com.controleconvidados.controller.CRUD_Cliente_Endereco;
 import br.com.controleconvidados.controller.CRUD_Contato;
+import br.com.controleconvidados.controller.CRUD_Endereco;
 import br.com.controleconvidados.controller.CRUD_Estado;
 import br.com.controleconvidados.controller.CRUD_TipoContato;
 import br.com.controleconvidados.controller.CRUD_TipoContato_Contato;
 import br.com.controleconvidados.controller.CRUD_TipoLogradouro;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import br.com.controleconvidados.model.Cidade;
 import br.com.controleconvidados.model.Cliente;
@@ -27,13 +26,15 @@ import br.com.controleconvidados.model.Tipo_Logradouro;
 public class FormCadCliente extends javax.swing.JFrame {
 
     //instanciando as classes e declarando variáveis 
-    int linha;
     DefaultTableModel tabela = new DefaultTableModel();
     
     CRUD_Contato contato_crud = new CRUD_Contato();    
     Contato contato = new Contato();
     CRUD_Cliente crudCli = new CRUD_Cliente();
-    CRUD_TipoContato_Contato tpContato_crud = new CRUD_TipoContato_Contato(); 
+    CRUD_TipoContato_Contato tpContato_crud = new CRUD_TipoContato_Contato();
+    CRUD_Endereco crudEnd = new CRUD_Endereco();
+    int linha;
+    
     
     //CRUD_Contato crudCont = new CRUD_Contato();
     
@@ -70,6 +71,8 @@ public class FormCadCliente extends javax.swing.JFrame {
         
         jTextFieldEmail.setEnabled(false);
         
+        cBoxComplemento.setSelectedIndex(1);
+       
         jLabelAptoCom.setEnabled(false);
         jTextFieldNumApto.setEnabled(false);
         buscarEstados();
@@ -121,6 +124,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         cBoxTipoLogradouro = new javax.swing.JComboBox();
         cBoxComplemento = new javax.swing.JComboBox();
         jFormattedTextFieldCep = new javax.swing.JFormattedTextField();
+        btnplusEnd = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         btnSalvar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
@@ -197,7 +201,7 @@ public class FormCadCliente extends javax.swing.JFrame {
             }
         });
 
-        btnADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/add-button-th.png"))); // NOI18N
+        btnADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/plus-circle.png"))); // NOI18N
         btnADD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnADDActionPerformed(evt);
@@ -379,7 +383,7 @@ public class FormCadCliente extends javax.swing.JFrame {
 
         cBoxTipoLogradouro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE" }));
 
-        cBoxComplemento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE", "APARTAMENTO", "CASA" }));
+        cBoxComplemento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "APARTAMENTO", "CASA" }));
         cBoxComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cBoxComplementoActionPerformed(evt);
@@ -392,6 +396,13 @@ public class FormCadCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        btnplusEnd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/plus-circle.png"))); // NOI18N
+        btnplusEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnplusEndActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelEnderecoLayout = new javax.swing.GroupLayout(jPanelEndereco);
         jPanelEndereco.setLayout(jPanelEnderecoLayout);
         jPanelEnderecoLayout.setHorizontalGroup(
@@ -399,6 +410,28 @@ public class FormCadCliente extends javax.swing.JFrame {
             .addGroup(jPanelEnderecoLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelEnderecoLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(4, 4, 4)
+                        .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)
+                        .addGroup(jPanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelEnderecoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                                .addComponent(btnplusEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(462, 462, 462))
+                            .addGroup(jPanelEnderecoLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jFormattedTextFieldCep, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1)
+                                .addGap(4, 4, 4)
+                                .addComponent(cBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel6)
+                                .addGap(4, 4, 4)
+                                .addComponent(cBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanelEnderecoLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(4, 4, 4)
@@ -416,23 +449,8 @@ public class FormCadCliente extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jLabelAptoCom)
                         .addGap(4, 4, 4)
-                        .addComponent(jTextFieldNumApto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelEnderecoLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(4, 4, 4)
-                        .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel12)
-                        .addGap(10, 10, 10)
-                        .addComponent(jFormattedTextFieldCep, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addGap(4, 4, 4)
-                        .addComponent(cBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel6)
-                        .addGap(4, 4, 4)
-                        .addComponent(cBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jTextFieldNumApto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46))))
         );
         jPanelEnderecoLayout.setVerticalGroup(
             jPanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,16 +482,18 @@ public class FormCadCliente extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(jLabel1)
                             .addComponent(jLabel6))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnplusEnd)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanelEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 870, 160));
+        getContentPane().add(jPanelEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 870, 150));
 
         jToolBar1.setRollover(true);
         jToolBar1.setToolTipText("");
         jToolBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/copia ok.png"))); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/tick.png"))); // NOI18N
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -481,7 +501,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jToolBar1.add(btnSalvar);
 
-        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/add-1-icon - Copia.png"))); // NOI18N
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/plus.png"))); // NOI18N
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
@@ -489,7 +509,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jToolBar1.add(btnNovo);
 
-        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/copia voltar.jpg"))); // NOI18N
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/arrow-180.png"))); // NOI18N
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -518,7 +538,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         cBoxTipoLogradouro.setSelectedIndex(0);
         cBoxUF.setSelectedIndex(0);
         cBoxCidade.setSelectedIndex(0);
-        cBoxComplemento.setSelectedIndex(0);
+        cBoxComplemento.setSelectedIndex(1);
        
         tabela.setRowCount(0);
         buttonGroup1.clearSelection();
@@ -670,7 +690,7 @@ public class FormCadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldEnderecoKeyReleased
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        //Cadastro de cliente
+            //Cadastro de cliente
         try {
             Cliente cli = new Cliente();
 
@@ -698,11 +718,11 @@ public class FormCadCliente extends javax.swing.JFrame {
                 String descContato = listaContatoTabela.get(i).getDescContato();
 
                 contato.setId_tipo_contato(tpContato);
-                int id = crudCli.buscarUltimoID();
+                int idCli = crudCli.buscarUltimoID();
                 contato.setDescricao(descContato);
                 contato.setFg_ativo(true);
 
-                contato_crud.inserir(contato, id);
+                contato_crud.inserir(contato, idCli);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro do Contato");
@@ -712,14 +732,60 @@ public class FormCadCliente extends javax.swing.JFrame {
         try {
             Endereco end = new Endereco();
             Tipo_Logradouro tpLogradouro = new Tipo_Logradouro();
-            Estado uf = new Estado();
             Cidade cidade = new Cidade();
-            Cliente_Endereco cli_end = new Cliente_Endereco();
+            CRUD_Cliente_Endereco crudCliEnd = new CRUD_Cliente_Endereco();
             
-                        
-        } catch (Exception e) {
+            
+            cidade.setId_cidade(cBoxCidade.getSelectedIndex());
+            tpLogradouro.setId_tipo_logradouro(cBoxTipoLogradouro.getSelectedIndex());
+            end.setDescricao(jTextFieldEndereco.getText());
+            end.setNum(Integer.parseInt(jTextFieldNum.getText()));
+            end.setComplemento(cBoxComplemento.getSelectedItem().toString());
+            end.setBairro(jTextFieldBairro.getSelectedText());
+            end.setCep(jFormattedTextFieldCep.getValue().toString());
+            end.setNum_apto(jTextFieldNumApto.getText());
+            
+            crudEnd.inserir(end);
+            
+            int idCliente = crudCli.buscarUltimoID();
+            int idEnd = crudEnd.buscarUltimoID();
+            
+            crudCliEnd.inserir(idCliente, idEnd);
+            
+            } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Erro no cadastro de Endereço");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnplusEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnplusEndActionPerformed
+        //Cadastro de Endereços
+     try {
+            Endereco end = new Endereco();
+            Tipo_Logradouro tpLogradouro = new Tipo_Logradouro();
+            Cidade cidade = new Cidade();
+            CRUD_Cliente_Endereco crudCliEnd = new CRUD_Cliente_Endereco();
+            
+            
+            cidade.setId_cidade(cBoxCidade.getSelectedIndex());
+            tpLogradouro.setId_tipo_logradouro(cBoxTipoLogradouro.getSelectedIndex());
+            end.setDescricao(jTextFieldEndereco.getText());
+            end.setNum(Integer.parseInt(jTextFieldNum.getText()));
+            end.setComplemento(cBoxComplemento.getSelectedItem().toString());
+            end.setBairro(jTextFieldBairro.getSelectedText());
+            end.setCep(jFormattedTextFieldCep.getValue().toString());
+            end.setNum_apto(jTextFieldNumApto.getText());
+            
+            crudEnd.inserir(end);
+            
+            int idCliente = crudCli.buscarUltimoID();
+            int idEnd = crudEnd.buscarUltimoID();
+            
+            crudCliEnd.inserir(idCliente, idEnd);
+            
+            } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Erro no cadastro de Endereço");
+        }
+    }//GEN-LAST:event_btnplusEndActionPerformed
     
     public void buscarCidades(){
        
@@ -770,11 +836,7 @@ public class FormCadCliente extends javax.swing.JFrame {
     }
     
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -807,6 +869,7 @@ public class FormCadCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSubt;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JButton btnplusEnd;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;

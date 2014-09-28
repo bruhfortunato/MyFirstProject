@@ -1,6 +1,5 @@
 package br.com.controleconvidados.view;
 
-import br.com.controleconvidados.utils.Conexao;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -22,7 +21,6 @@ public class FormMenu extends javax.swing.JFrame {
         }
         
         initComponents();
-        Conectar();
         this.setExtendedState(MAXIMIZED_BOTH);
     }
 
@@ -104,11 +102,6 @@ public class FormMenu extends javax.swing.JFrame {
         FormConsultCliente consultCli = new FormConsultCliente();
         consultCli.setVisible(true);
     }//GEN-LAST:event_jMenu1ActionPerformed
-    
-    public void Conectar (){
-                Conexao c = new Conexao();
-      }
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

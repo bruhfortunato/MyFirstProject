@@ -19,18 +19,17 @@ public class Conexao {
          
           StringBuilder sb = new StringBuilder();
           this.url = sb.append("jdbc:postgresql://")
-                 .append(loader.getValue("localhost"))
+                 .append(loader.getValue("server"))
                  .append(":")
-                 .append(loader.getValue("5432"))
+                 .append(loader.getValue("port"))
                  .append("/")
-                 .append(loader.getValue("CONTROLE_CONVIDADOS")).toString();
+                 .append(loader.getValue("database")).toString();
           
           props = new Properties();
-          props.setProperty("user",loader.getValue("postgres"));
-          props.setProperty("password",loader.getValue("polly1105"));
+          props.setProperty("user",loader.getValue("username"));
+          props.setProperty("password",loader.getValue("password"));
 
     }
-    
     public void conectar(){
         try{
             
