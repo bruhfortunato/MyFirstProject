@@ -11,17 +11,14 @@ import javax.swing.UIManager;
 public class LookAndFeelUtils {
     
     public static void setLookAndFeel(){
-         try {
+        try {
             UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FormMenu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(FormMenu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(FormMenu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(FormMenu.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (IllegalAccessException | UnsupportedLookAndFeelException |
+                   ClassNotFoundException | InstantiationException ex) {
+            Logger.getLogger(LookAndFeelUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
     
      public static void setWindowIcon(JFrame jf,String imagePath) {
@@ -30,5 +27,6 @@ public class LookAndFeelUtils {
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
         jf.setIconImage(imagemTitulo);
     }
+     
     }
 
