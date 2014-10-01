@@ -39,5 +39,28 @@ public class CRUD_TipoLogradouro{
       }
       return listaTipoLogradouro;
     }
-
+public int buscarIdTpLogradouro(String descTpLogradouro){
+    
+        int codTpLogradouro=0;
+    try {
+        c.conectar();
+        PreparedStatement stmt = c.con.prepareStatement(
+                "SELECT id_tipo_logradouro "+
+                "FROM tb_tipo_logradouro " +
+                "WHERE descricao ILIKE '?'");
+        ResultSet rs = stmt.executeQuery();
+        
+        while (rs.next()) {
+           codTpLogradouro = rs.getInt("id_tipo_logradouro");
+        }
+        stmt.close();;
+   
+        
+    } catch (SQLException e){
+          
+            JOptionPane.showMessageDialog(null, "ERRO..."+e.getMessage(), "Consulta de Cidade", 0);
+    }
+        return codTpLogradouro;
+    
+}
 }

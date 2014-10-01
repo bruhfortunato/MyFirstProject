@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Bruna/Documents/GitHub/MyFirstProject/src/br/com/controleconvidados/model/Endereco.java</file>
-            <file>file:/C:/Users/Bruna/Documents/GitHub/MyFirstProject/src/br/com/controleconvidados/controller/CRUD_Endereco.java</file>
             <file>file:/C:/Users/Bruna/Documents/GitHub/MyFirstProject/src/br/com/controleconvidados/view/FormCadCliente.java</file>
-            <file>file:/C:/Users/Bruna/Documents/GitHub/MyFirstProject/src/br/com/controleconvidados/model/Cliente.java</file>
+            <file>file:/C:/Users/Bruna/Documents/GitHub/MyFirstProject/src/br/com/controleconvidados/controller/CRUD_Endereco.java</file>
+            <file>file:/C:/Users/Bruna/Documents/GitHub/MyFirstProject/src/br/com/controleconvidados/controller/CRUD_Cliente.java</file>
+            <file>file:/C:/Users/Bruna/Documents/GitHub/MyFirstProject/src/br/com/controleconvidados/controller/CRUD_TipoLogradouro.java</file>
         </group>
     </open-files>
 </project-private>

@@ -42,7 +42,30 @@ public class CRUD_Estado {
       return listaEstado;
     }
 
+
+    public int buscarIdEstado(String siglaEstado){
+    
+        int codEstado=0;
+    try {
+        c.conectar();
+        PreparedStatement stmt = c.con.prepareStatement(
+                "SELECT id_estado_ "+
+                "FROM tb_estado " +
+                "WHERE sigla ILIKE '?'");
+        ResultSet rs = stmt.executeQuery();
+        
+        while (rs.next()) {
+            codEstado = rs.getInt("id_estado");
+        }
+        stmt.close();;
    
+        
+    } catch (SQLException e){
+          
+            JOptionPane.showMessageDialog(null, "ERRO..."+e.getMessage(), "Consulta de Cidade", 0);
+    }
+        return codEstado;
      
 }
 
+}

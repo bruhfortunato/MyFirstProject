@@ -22,8 +22,8 @@ Conexao c = new Conexao();
              pst.setString(5, end.getComplemento());
              pst.setString(6, end.getNum_apto());
              pst.setString(7, end.getBairro());
-             pst.setString(9, end.getCep());
-             pst.setBoolean(8, true);
+             pst.setString(8, end.getCep());
+             pst.setBoolean(9, true);
              
              pst.execute();
              pst.close();
@@ -41,15 +41,18 @@ Conexao c = new Conexao();
         
         int codEnd=0;
         try {
-            PreparedStatement stmt = c.con.prepareStatement(" SELECT MAX(id_cliente) " +
-                                                    "FROM tb_cliente");
+            PreparedStatement stmt = c.con.prepareStatement(" SELECT MAX(id_endereco) " +
+                                                    "FROM tb_endereco");
             ResultSet rs = stmt.executeQuery();
-            Endereco end = new Endereco();
             
-            if(rs.next()){
+            rs.next();
+            codEnd= rs.getInt(1);        
+            Endereco end = new Endereco();
+            /*if(rs.next()){
               end.setId_endereco(rs.getInt(1));
               codEnd = end.getId_endereco();
-            } 
+            }
+            */
             
         stmt.close();
         

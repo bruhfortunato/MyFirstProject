@@ -2,7 +2,6 @@ package br.com.controleconvidados.view;
 
 import br.com.controleconvidados.controller.CRUD_Cidade;
 import br.com.controleconvidados.controller.CRUD_Cliente;
-import br.com.controleconvidados.controller.CRUD_Cliente_Endereco;
 import br.com.controleconvidados.controller.CRUD_Contato;
 import br.com.controleconvidados.controller.CRUD_Endereco;
 import br.com.controleconvidados.controller.CRUD_Estado;
@@ -15,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import br.com.controleconvidados.model.Cidade;
 import br.com.controleconvidados.model.Cliente;
-import br.com.controleconvidados.model.Cliente_Endereco;
 import br.com.controleconvidados.model.Contato;
 import br.com.controleconvidados.model.Endereco;
 import br.com.controleconvidados.model.Estado;
@@ -33,6 +31,10 @@ public class FormCadCliente extends javax.swing.JFrame {
     CRUD_Cliente crudCli = new CRUD_Cliente();
     CRUD_TipoContato_Contato tpContato_crud = new CRUD_TipoContato_Contato();
     CRUD_Endereco crudEnd = new CRUD_Endereco();
+    CRUD_Cidade crudCidade = new CRUD_Cidade();
+    CRUD_Estado crudEstado = new CRUD_Estado();
+    CRUD_TipoLogradouro crudTpLogradouro = new CRUD_TipoLogradouro();
+    
     int linha;
     
     
@@ -40,6 +42,7 @@ public class FormCadCliente extends javax.swing.JFrame {
     
     List<TipoContato_Contato> listaContatoTabela = new ArrayList<TipoContato_Contato>();
     List<Contato> listaContatos = new ArrayList<Contato>();
+    List<Cidade> listaCidade = new ArrayList<Cidade>();
     
     //utilizado para incluir a lista na tabela linha por linha
     public void preencherTabelaContato1(String tipocontato, String contato){ 
@@ -124,7 +127,6 @@ public class FormCadCliente extends javax.swing.JFrame {
         cBoxTipoLogradouro = new javax.swing.JComboBox();
         cBoxComplemento = new javax.swing.JComboBox();
         jFormattedTextFieldCep = new javax.swing.JFormattedTextField();
-        btnplusEnd = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         btnSalvar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
@@ -193,6 +195,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         getContentPane().add(jPanelCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 290, 160));
 
         jPanelContato.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Contato"));
+        jPanelContato.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cBoxTipoContato.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE" }));
         cBoxTipoContato.addActionListener(new java.awt.event.ActionListener() {
@@ -200,6 +203,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                 cBoxTipoContatoActionPerformed(evt);
             }
         });
+        jPanelContato.add(cBoxTipoContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 28, 160, 30));
 
         btnADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/plus-circle.png"))); // NOI18N
         btnADD.addActionListener(new java.awt.event.ActionListener() {
@@ -207,6 +211,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                 btnADDActionPerformed(evt);
             }
         });
+        jPanelContato.add(btnADD, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 50, 30));
 
         jTableContato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -227,17 +232,21 @@ public class FormCadCliente extends javax.swing.JFrame {
             jTableContato.getColumnModel().getColumn(1).setMaxWidth(140);
         }
 
+        jPanelContato.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 320, 140));
+
         try {
             jFormatTextContato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jPanelContato.add(jFormatTextContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 140, 28));
 
         jTextFieldEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldEmailKeyReleased(evt);
             }
         });
+        jPanelContato.add(jTextFieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 140, 30));
 
         btnSubt.setText("Excluir ");
         btnSubt.addActionListener(new java.awt.event.ActionListener() {
@@ -245,6 +254,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                 btnSubtActionPerformed(evt);
             }
         });
+        jPanelContato.add(btnSubt, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 90, 30));
 
         jButton1.setText("Excluir Tudo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -252,48 +262,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanelContatoLayout = new javax.swing.GroupLayout(jPanelContato);
-        jPanelContato.setLayout(jPanelContatoLayout);
-        jPanelContatoLayout.setHorizontalGroup(
-            jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelContatoLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(cBoxTipoContato, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormatTextContato, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(btnADD, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanelContatoLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanelContatoLayout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(btnSubt, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanelContatoLayout.setVerticalGroup(
-            jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelContatoLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cBoxTipoContato, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelContatoLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jFormatTextContato, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnADD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanelContatoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSubt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        jPanelContato.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 110, 30));
 
         getContentPane().add(jPanelContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 470, 260));
 
@@ -383,7 +352,7 @@ public class FormCadCliente extends javax.swing.JFrame {
 
         cBoxTipoLogradouro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE" }));
 
-        cBoxComplemento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "APARTAMENTO", "CASA" }));
+        cBoxComplemento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "APE", "CASA" }));
         cBoxComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cBoxComplementoActionPerformed(evt);
@@ -395,13 +364,6 @@ public class FormCadCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-
-        btnplusEnd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/plus-circle.png"))); // NOI18N
-        btnplusEnd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnplusEndActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanelEnderecoLayout = new javax.swing.GroupLayout(jPanelEndereco);
         jPanelEndereco.setLayout(jPanelEnderecoLayout);
@@ -416,22 +378,16 @@ public class FormCadCliente extends javax.swing.JFrame {
                         .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel12)
-                        .addGroup(jPanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelEnderecoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                                .addComponent(btnplusEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(462, 462, 462))
-                            .addGroup(jPanelEnderecoLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jFormattedTextFieldCep, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1)
-                                .addGap(4, 4, 4)
-                                .addComponent(cBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(jLabel6)
-                                .addGap(4, 4, 4)
-                                .addComponent(cBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(10, 10, 10)
+                        .addComponent(jFormattedTextFieldCep, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(4, 4, 4)
+                        .addComponent(cBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel6)
+                        .addGap(4, 4, 4)
+                        .addComponent(cBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelEnderecoLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(4, 4, 4)
@@ -449,8 +405,8 @@ public class FormCadCliente extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jLabelAptoCom)
                         .addGap(4, 4, 4)
-                        .addComponent(jTextFieldNumApto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46))))
+                        .addComponent(jTextFieldNumApto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanelEnderecoLayout.setVerticalGroup(
             jPanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,13 +438,12 @@ public class FormCadCliente extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(jLabel1)
                             .addComponent(jLabel6))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnplusEnd)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanelEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 870, 150));
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
         jToolBar1.setToolTipText("");
         jToolBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -556,7 +511,7 @@ public class FormCadCliente extends javax.swing.JFrame {
       if (cBoxTipoContato.getSelectedItem().toString().equalsIgnoreCase("CELULAR")){
             
       try {  
-            jTextFieldEmail.setVisible(false);      
+            jTextFieldEmail.setEnabled(false);      
             jFormatTextContato.setVisible(true);
             jFormatTextContato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));  
            } catch (java.text.ParseException ex) {  
@@ -567,7 +522,7 @@ public class FormCadCliente extends javax.swing.JFrame {
           (cBoxTipoContato.getSelectedItem().toString().equalsIgnoreCase("TELEFONE RESIDENCIAL")) ||
           (cBoxTipoContato.getSelectedItem().toString().equalsIgnoreCase("FAX"))) {
       try {  
-                 jTextFieldEmail.setVisible(false);
+                 jTextFieldEmail.setEnabled(false);
                  jFormatTextContato.setVisible(true);
                  jFormatTextContato.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));  
            } catch (java.text.ParseException ex) {  
@@ -576,7 +531,7 @@ public class FormCadCliente extends javax.swing.JFrame {
        }
        if (cBoxTipoContato.getSelectedItem().toString().equalsIgnoreCase("E-MAIL")) {
            jFormatTextContato.setVisible(false);
-           jTextFieldEmail.setVisible(true);
+           jTextFieldEmail.setEnabled(true);
            
        }
     }//GEN-LAST:event_cBoxTipoContatoActionPerformed
@@ -664,7 +619,7 @@ public class FormCadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldEmailKeyReleased
 
     private void cBoxComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxComplementoActionPerformed
-        if (cBoxComplemento.getSelectedItem().toString().equalsIgnoreCase("APARTAMENTO")){
+        if (cBoxComplemento.getSelectedItem().toString().equalsIgnoreCase("APE")){
             jLabelAptoCom.setEnabled(true);
             jTextFieldNumApto.setEnabled(true);
         }else{
@@ -690,10 +645,40 @@ public class FormCadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldEnderecoKeyReleased
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-            //Cadastro de cliente
+    //Cadastro de Endereços
+        try {
+            String descTpLogradouro, nomeCidade;  // vai pegar da combo
+            
+            descTpLogradouro = cBoxTipoLogradouro.getSelectedItem().toString();
+            nomeCidade = cBoxCidade.getSelectedItem().toString(); // pegando o nome
+            
+            Endereco end = new Endereco();
+            
+                       
+            //int codCidade = crudCidade.buscarIdCidade(nomeCidade); //retornando do metodo para o banco
+            int codTpLogradouro = crudTpLogradouro.buscarIdTpLogradouro(descTpLogradouro);
+                        
+            
+            end.setId_tipo_logradouro(codTpLogradouro);
+            end.setDescricao(jTextFieldEndereco.getText());
+            end.setNum(Integer.parseInt(jTextFieldNum.getText()));
+            end.setComplemento(cBoxComplemento.getSelectedItem().toString());
+            end.setNum_apto(jTextFieldNumApto.getText());
+            end.setBairro(jTextFieldBairro.getSelectedText());
+            end.setCep(jFormattedTextFieldCep.getValue().toString());
+            
+            crudEnd.inserir(end);
+            
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Erro no cadastro de Endereço");
+        }
+    
+     //Cadastro de cliente
         try {
             Cliente cli = new Cliente();
-
+            int idEnd = crudEnd.buscarUltimoID();
+            
+            cli.setId_endereco(idEnd);
             cli.setNome_cliente(jTextFieldCliente.getText());
             cli.setCpf_cnpj(jFormattedTextCpfCNPJ.getValue().toString());
 
@@ -705,94 +690,37 @@ public class FormCadCliente extends javax.swing.JFrame {
                 cli.setTipo_pessoa("JURIDICA");
             }
             crudCli.inserir(cli);
+        
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro de Cliente");
         }
+        
 
-        //Cadastro de Contatos
+  //Cadastro de Contatos
         try {
             for ( int i=0; i < listaContatoTabela.size(); i++){
                 Contato contato = new Contato();
                 // declarando o id_tipo_contato, pegando da lista
                 int tpContato = listaContatoTabela.get(i).getId_tipo_contato();
                 String descContato = listaContatoTabela.get(i).getDescContato();
-
-                contato.setId_tipo_contato(tpContato);
                 int idCli = crudCli.buscarUltimoID();
+                
+                contato.setId_tipo_contato(tpContato);
+                contato.setId_cliente(idCli);
                 contato.setDescricao(descContato);
-                contato.setFg_ativo(true);
-
-                contato_crud.inserir(contato, idCli);
+                contato_crud.inserir(contato);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro do Contato");
         }
-
-        //Cadastro de Endereços
-        try {
-            Endereco end = new Endereco();
-            Tipo_Logradouro tpLogradouro = new Tipo_Logradouro();
-            Cidade cidade = new Cidade();
-            CRUD_Cliente_Endereco crudCliEnd = new CRUD_Cliente_Endereco();
-            
-            
-            cidade.setId_cidade(cBoxCidade.getSelectedIndex());
-            tpLogradouro.setId_tipo_logradouro(cBoxTipoLogradouro.getSelectedIndex());
-            end.setDescricao(jTextFieldEndereco.getText());
-            end.setNum(Integer.parseInt(jTextFieldNum.getText()));
-            end.setComplemento(cBoxComplemento.getSelectedItem().toString());
-            end.setBairro(jTextFieldBairro.getSelectedText());
-            end.setCep(jFormattedTextFieldCep.getValue().toString());
-            end.setNum_apto(jTextFieldNumApto.getText());
-            
-            crudEnd.inserir(end);
-            
-            int idCliente = crudCli.buscarUltimoID();
-            int idEnd = crudEnd.buscarUltimoID();
-            
-            crudCliEnd.inserir(idCliente, idEnd);
-            
-            } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Erro no cadastro de Endereço");
-        }
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void btnplusEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnplusEndActionPerformed
-        //Cadastro de Endereços
-     try {
-            Endereco end = new Endereco();
-            Tipo_Logradouro tpLogradouro = new Tipo_Logradouro();
-            Cidade cidade = new Cidade();
-            CRUD_Cliente_Endereco crudCliEnd = new CRUD_Cliente_Endereco();
-            
-            
-            cidade.setId_cidade(cBoxCidade.getSelectedIndex());
-            tpLogradouro.setId_tipo_logradouro(cBoxTipoLogradouro.getSelectedIndex());
-            end.setDescricao(jTextFieldEndereco.getText());
-            end.setNum(Integer.parseInt(jTextFieldNum.getText()));
-            end.setComplemento(cBoxComplemento.getSelectedItem().toString());
-            end.setBairro(jTextFieldBairro.getSelectedText());
-            end.setCep(jFormattedTextFieldCep.getValue().toString());
-            end.setNum_apto(jTextFieldNumApto.getText());
-            
-            crudEnd.inserir(end);
-            
-            int idCliente = crudCli.buscarUltimoID();
-            int idEnd = crudEnd.buscarUltimoID();
-            
-            crudCliEnd.inserir(idCliente, idEnd);
-            
-            } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Erro no cadastro de Endereço");
-        }
-    }//GEN-LAST:event_btnplusEndActionPerformed
     
     public void buscarCidades(){
        
         cBoxCidade.removeAllItems();
-        CRUD_Cidade cidadeC = new CRUD_Cidade();
-        List<Cidade> listaCidade = new ArrayList<Cidade>();
-        listaCidade = cidadeC.listar(cBoxUF.getSelectedItem().toString());
+        CRUD_Cidade crudCidade = new CRUD_Cidade();
+        List<Cidade> listaCidade = (List<Cidade>)
+        crudCidade.listar(cBoxUF.getSelectedItem().toString());
         
         for(int i=0; i<listaCidade.size();i++){
              cBoxCidade.addItem(listaCidade.get(i).getNome());
@@ -822,6 +750,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         }
     }
     
+
     public void buscarTipoLogradouro(){
         
         int id_logradouro;
@@ -869,7 +798,6 @@ public class FormCadCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSubt;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton btnplusEnd;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;

@@ -1,7 +1,7 @@
 package br.com.controleconvidados.model;
 
 public class Cliente {
-    int id_cliente;
+    int id_cliente, id_endereco;
     String nome_cliente, cpf_cnpj, tipo_pessoa;
     boolean fg_ativo;
 
@@ -11,6 +11,14 @@ public class Cliente {
 
     public void setId_cliente(int id_cliente) {
         this.id_cliente = id_cliente;
+    }
+
+    public int getId_endereco() {
+        return id_endereco;
+    }
+
+    public void setId_endereco(int id_endereco) {
+        this.id_endereco = id_endereco;
     }
 
     public String getTipo_pessoa() {

@@ -1,18 +1,17 @@
 package br.com.controleconvidados.controller;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
 import br.com.controleconvidados.model.Cidade;
 import br.com.controleconvidados.utils.Conexao;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class CRUD_Cidade {
+
     Conexao c = new Conexao();
- 
-    public List listar(String sigla){
+   
+public List listar(String sigla){
          List<Cidade> listaCidade = new ArrayList<Cidade>();
          
          try{
@@ -42,10 +41,29 @@ public class CRUD_Cidade {
             JOptionPane.showMessageDialog(null, "ERRO..."+ e.getMessage(), "Consulta de Cidades", 0);
       }
       return listaCidade;
-      
-      
-    }
-        
-
+}
+public int buscarIdCidade(String descTpLogradouro){
     
+        int codCidade=0;
+    try {
+        c.conectar();
+        PreparedStatement stmt = c.con.prepareStatement(
+                "SELECT id_cidade "+
+                "FROM tb_cidade " +
+                "WHERE nome ILIKE '?'");
+        ResultSet rs = stmt.executeQuery();
+        
+        while (rs.next()) {
+           codCidade = rs.getInt("id_cidade");
+        }
+        stmt.close();
+   
+        
+    } catch (SQLException e){
+          
+            JOptionPane.showMessageDialog(null, "ERRO..."+e.getMessage(), "Consulta de Cidade", 0);
+    }
+        return codCidade;
+    
+}
 }
