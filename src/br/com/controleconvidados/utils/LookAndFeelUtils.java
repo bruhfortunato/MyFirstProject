@@ -10,7 +10,7 @@ import javax.swing.UIManager;
 
 public class LookAndFeelUtils {
     
-    public static void setLookAndFeel(){
+    public static void setLookAndFeelUtils(){
         try {
             UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
 

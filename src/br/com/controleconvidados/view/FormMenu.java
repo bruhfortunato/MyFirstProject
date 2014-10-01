@@ -5,7 +5,7 @@ public class FormMenu extends javax.swing.JFrame {
 
     public FormMenu() {
         
-        LookAndFeelUtils.setLookAndFeel();
+        LookAndFeelUtils.setLookAndFeelUtils();
         LookAndFeelUtils.setWindowIcon(this,"/br/com/controleconvidados/images/home.png");
         
         initComponents();
