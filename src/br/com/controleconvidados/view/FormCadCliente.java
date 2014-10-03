@@ -488,6 +488,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         jTextFieldNum.setText(null);
         jTextFieldBairro.setText(null);
         jTextFieldNumApto.setText(null);
+        jTextFieldEmail.setText(null);
         
         cBoxTipoContato.setSelectedIndex(0);
         cBoxTipoLogradouro.setSelectedIndex(0);
@@ -496,6 +497,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         cBoxComplemento.setSelectedIndex(1);
        
         tabela.setRowCount(0);
+        listaContatoTabela.clear();
         buttonGroup1.clearSelection();
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -653,21 +655,23 @@ public class FormCadCliente extends javax.swing.JFrame {
             nomeCidade = cBoxCidade.getSelectedItem().toString(); // pegando o nome
             
             Endereco end = new Endereco();
-            
                        
-            //int codCidade = crudCidade.buscarIdCidade(nomeCidade); //retornando do metodo para o banco
+            int codCidade = crudCidade.buscarIdCidade(nomeCidade); //retornando do metodo para o banco
             int codTpLogradouro = crudTpLogradouro.buscarIdTpLogradouro(descTpLogradouro);
                         
-            
+            end.setId_cidade(codCidade);
             end.setId_tipo_logradouro(codTpLogradouro);
             end.setDescricao(jTextFieldEndereco.getText());
             end.setNum(Integer.parseInt(jTextFieldNum.getText()));
             end.setComplemento(cBoxComplemento.getSelectedItem().toString());
             end.setNum_apto(jTextFieldNumApto.getText());
-            end.setBairro(jTextFieldBairro.getSelectedText());
+            end.setBairro(jTextFieldBairro.getText());
             end.setCep(jFormattedTextFieldCep.getValue().toString());
+            end.setFg_ativo(true);
             
             crudEnd.inserir(end);
+            System.out.println("Endereco ok");
+        
             
         } catch (Exception e) {
              JOptionPane.showMessageDialog(null, "Erro no cadastro de Endereço");
@@ -690,6 +694,8 @@ public class FormCadCliente extends javax.swing.JFrame {
                 cli.setTipo_pessoa("JURIDICA");
             }
             crudCli.inserir(cli);
+            
+            System.out.println("Cliente ok");
         
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro de Cliente");
@@ -702,13 +708,17 @@ public class FormCadCliente extends javax.swing.JFrame {
                 Contato contato = new Contato();
                 // declarando o id_tipo_contato, pegando da lista
                 int tpContato = listaContatoTabela.get(i).getId_tipo_contato();
-                String descContato = listaContatoTabela.get(i).getDescContato();
                 int idCli = crudCli.buscarUltimoID();
+                String descContato = listaContatoTabela.get(i).getDescContato();
                 
                 contato.setId_tipo_contato(tpContato);
                 contato.setId_cliente(idCli);
                 contato.setDescricao(descContato);
+                contato.setFg_ativo(true);
                 contato_crud.inserir(contato);
+                
+                System.out.println("Contato ok");
+        
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro do Contato");

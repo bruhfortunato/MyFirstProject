@@ -1,4 +1,4 @@
-import br.com.controleconvidados.view.FormMenu;
+package br.com.controleconvidados.utils;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;

@@ -26,7 +26,6 @@ public class CRUD_Cliente {
             pst.setBoolean(5, true);
             
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Cadastro de Cliente OK", "", 1);
             pst.close();
            
             c.FecharConexao();
@@ -67,11 +66,11 @@ public class CRUD_Cliente {
     public List listar(){
         try {
             c.conectar();
-            PreparedStatement stmt = c.con.prepareStatement(
+            PreparedStatement pst = c.con.prepareStatement(
             "SELECT * FROM tb_cliente "+
             "ORDER BY nome_cliente");
             
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = pst.executeQuery();
             
             while (rs.next()){
                 Cliente cli = new Cliente();
@@ -84,7 +83,7 @@ public class CRUD_Cliente {
                 cli.setFg_ativo(rs.getBoolean("true"));
                 listaCliente.add(cli);
                 }
-            stmt.close();
+            pst.close();
             c.FecharConexao();
             
         } catch (SQLException e) {

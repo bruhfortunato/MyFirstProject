@@ -47,13 +47,14 @@ public int buscarIdTpLogradouro(String descTpLogradouro){
         PreparedStatement stmt = c.con.prepareStatement(
                 "SELECT id_tipo_logradouro "+
                 "FROM tb_tipo_logradouro " +
-                "WHERE descricao ILIKE '?'");
+                "WHERE descricao ILIKE '" + descTpLogradouro + "'");
         ResultSet rs = stmt.executeQuery();
         
         while (rs.next()) {
            codTpLogradouro = rs.getInt("id_tipo_logradouro");
         }
-        stmt.close();;
+        stmt.close();
+        c.FecharConexao();
    
         
     } catch (SQLException e){

@@ -29,7 +29,7 @@ Conexao c = new Conexao();
              pst.close();
              
              c.FecharConexao();
-            
+             System.out.println("Endereco ok");
         } catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Erro " + e.getMessage(), "Alerta", 2);
         }
@@ -48,11 +48,6 @@ Conexao c = new Conexao();
             rs.next();
             codEnd= rs.getInt(1);        
             Endereco end = new Endereco();
-            /*if(rs.next()){
-              end.setId_endereco(rs.getInt(1));
-              codEnd = end.getId_endereco();
-            }
-            */
             
         stmt.close();
         

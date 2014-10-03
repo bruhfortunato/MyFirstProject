@@ -23,10 +23,11 @@ public class CRUD_Contato {
             pst.setBoolean(4, true);
             
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Cadastro OK", "", 1);
             pst.close();
             
+             System.out.println("Contato ok");
             c.FecharConexao();
+            
             
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Erro " + e.getMessage(), "Alerta", 2);
