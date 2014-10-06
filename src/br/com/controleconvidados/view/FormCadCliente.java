@@ -478,27 +478,7 @@ public class FormCadCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-                
-        jFormattedTextCpfCNPJ.setValue(null);
-        jFormatTextContato.setValue(null);
-        jFormattedTextFieldCep.setValue(null);
-        
-        jTextFieldCliente.setText(null);
-        jTextFieldEndereco.setText(null);
-        jTextFieldNum.setText(null);
-        jTextFieldBairro.setText(null);
-        jTextFieldNumApto.setText(null);
-        jTextFieldEmail.setText(null);
-        
-        cBoxTipoContato.setSelectedIndex(0);
-        cBoxTipoLogradouro.setSelectedIndex(0);
-        cBoxUF.setSelectedIndex(0);
-        cBoxCidade.setSelectedIndex(0);
-        cBoxComplemento.setSelectedIndex(1);
-       
-        tabela.setRowCount(0);
-        listaContatoTabela.clear();
-        buttonGroup1.clearSelection();
+        limpar();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -608,8 +588,7 @@ public class FormCadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableContatoMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        listaContatoTabela.removeAll(listaContatoTabela); //apagando todos os dados
-        preencherTabelaContato(listaContatoTabela);
+        limparTabela();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextFieldClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldClienteKeyReleased
@@ -624,7 +603,8 @@ public class FormCadCliente extends javax.swing.JFrame {
         if (cBoxComplemento.getSelectedItem().toString().equalsIgnoreCase("APE")){
             jLabelAptoCom.setEnabled(true);
             jTextFieldNumApto.setEnabled(true);
-        }else{
+        }
+        if (cBoxComplemento.getSelectedItem().toString().equalsIgnoreCase("CASA")){
             jLabelAptoCom.setEnabled(false);
             jTextFieldNumApto.setEnabled(false);
         }
@@ -695,11 +675,12 @@ public class FormCadCliente extends javax.swing.JFrame {
             }
             crudCli.inserir(cli);
             
-            System.out.println("Cliente ok");
+            
         
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro de Cliente");
         }
+        
         
 
   //Cadastro de Contatos
@@ -717,12 +698,13 @@ public class FormCadCliente extends javax.swing.JFrame {
                 contato.setFg_ativo(true);
                 contato_crud.inserir(contato);
                 
-                System.out.println("Contato ok");
-        
+                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro do Contato");
         }
+        
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
     
     public void buscarCidades(){
@@ -773,6 +755,32 @@ public class FormCadCliente extends javax.swing.JFrame {
         }
           
     }
+    
+    public void limparTabela(){
+        listaContatoTabela.removeAll(listaContatoTabela); //apagando todos os dados
+        preencherTabelaContato(listaContatoTabela);
+    }
+    
+    public void limpar(){
+                 
+        jFormattedTextCpfCNPJ.setValue(null);
+        jFormatTextContato.setValue(null);
+        jFormattedTextFieldCep.setValue(null);
+        
+        jTextFieldCliente.setText(null);
+        jTextFieldEndereco.setText(null);
+        jTextFieldNum.setText(null);
+        jTextFieldBairro.setText(null);
+        jTextFieldNumApto.setText(null);
+        jTextFieldEmail.setText(null);
+        
+        cBoxTipoContato.setSelectedIndex(0);
+        cBoxTipoLogradouro.setSelectedIndex(0);
+        cBoxUF.setSelectedIndex(0);
+        cBoxComplemento.setSelectedIndex(1);       
+        limparTabela();
+        buttonGroup1.clearSelection();
+        }   
     
     public static void main(String args[]) {
         

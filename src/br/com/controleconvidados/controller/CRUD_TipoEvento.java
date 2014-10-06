@@ -33,6 +33,27 @@ public class CRUD_TipoEvento {
         }
     }
     
+    public String buscarDescricao(String descricao){
+        String desc = null;
+        try {
+            c.conectar();
+            PreparedStatement stmt = c.con.prepareStatement("SELECT descricao "
+                                        + "FROM tb_tipo_evento "
+                                        + "WHERE descricao ILIKE '" 
+                                        + descricao + "'");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                desc = rs.getString("descricao");
+            }
+            stmt.close();
+            c.FecharConexao();
+
+        } catch (Exception e) {
+         JOptionPane.showMessageDialog(null, "ERRO..." + e.getMessage(), "Consulta de Tipo de Eventos", 0);
+        }
+        
+        return desc;
+    }
     public void listar(){
         try {
             c.conectar();
