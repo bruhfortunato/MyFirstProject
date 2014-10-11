@@ -14,28 +14,50 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
    List<TipoEvento> lista_tpEvento = new ArrayList<TipoEvento>();
    CRUD_TipoEvento crud_tpEvento = new CRUD_TipoEvento();
              
-    public void preencherTabela(){
+   
+    public void preencherTabelaTodos(){
         modelo = (DefaultTableModel) jTableTipoEvento.getModel();
             modelo.setRowCount(0);
-            
-            try {
-    
+        try {
             lista_tpEvento = crud_tpEvento.listarDescricao();
                 
                 for(int i = 0; i<lista_tpEvento.size(); i++){
                 
                 if(lista_tpEvento.get(i).isFg_ativo()){
-                    System.out.println("dentro do for e if");   
                 
                     modelo.addRow(new Object[]{
+                    lista_tpEvento.get(i).getId_tipo_evento(),
                     lista_tpEvento.get(i).getDescricao()
-                });
-            }}
+                    
+                    });
+                }}
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro na busca");
+            JOptionPane.showMessageDialog(null, "Erro na busca" + e.getMessage());
+    }
+    }
+    
+    public void preencherTabelaDescricao(){
+        modelo = (DefaultTableModel) jTableTipoEvento.getModel();
+        modelo.setRowCount(0);
+        
+        try {
+            String descricao = jTextFieldDescricao.getText();
+            lista_tpEvento = crud_tpEvento.listarPorDescricao(descricao);
+            
+            for(int i = 0; i<lista_tpEvento.size(); i++){
+                if (lista_tpEvento.get(i).getDescricao() == descricao &&
+                   (lista_tpEvento.get(i).isFg_ativo())){
+                    
+                    modelo.addRow(new Object[]{
+                    lista_tpEvento.get(i).getDescricao()
+                    
+                    });
+                }
+            }
+        } catch (Exception e) {
         }
     }
-   
+    
     public FormConsultaTipoEvento() {
         
         initComponents();
@@ -58,12 +80,20 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldCodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar Tipo de Evento"));
 
         Descrição.setText("Descricao");
+
+        jTextFieldDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldDescricaoKeyReleased(evt);
+            }
+        });
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/magnifier.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
@@ -78,7 +108,7 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo de Evento"
+                "Código", "Descrição"
             }
         ));
         jTableTipoEvento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -87,6 +117,10 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTableTipoEvento);
+        if (jTableTipoEvento.getColumnModel().getColumnCount() > 0) {
+            jTableTipoEvento.getColumnModel().getColumn(0).setMinWidth(50);
+            jTableTipoEvento.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
 
         btnExibirTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/Pesquisar.png"))); // NOI18N
         btnExibirTodos.setText("Exibir Todos");
@@ -138,8 +172,19 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
 
         jLabel1.setText("Tipo de Evento");
 
+        jTextFieldTpEvento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldTpEventoKeyReleased(evt);
+            }
+        });
+
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/tick.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/cross.png"))); // NOI18N
         btnExcluir.setText("Escluir");
@@ -152,39 +197,47 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Codigo");
+
+        jTextFieldCodigo.setEditable(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldTpEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(btnAlterar)
-                        .addGap(72, 72, 72)
-                        .addComponent(btnExcluir)
-                        .addGap(64, 64, 64)
-                        .addComponent(btnVoltar)))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addComponent(btnAlterar)
+                .addGap(72, 72, 72)
+                .addComponent(btnExcluir)
+                .addGap(64, 64, 64)
+                .addComponent(btnVoltar)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jTextFieldTpEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldTpEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAlterar)
                     .addComponent(btnExcluir)
                     .addComponent(btnVoltar))
-                .addGap(19, 19, 19))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,13 +245,13 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,40 +260,57 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-            
-    String descricao = jTextFieldDescricao.getText();
-    
-    if(!"".equals(crud_tpEvento.buscarTipoEvento(descricao))){
-        
-    } else {
-        JOptionPane.showMessageDialog(null, "Não encontrado!");
-    }
-    
-            
-    }//GEN-LAST:event_btnPesquisarActionPerformed
-
-    private void btnExibirTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExibirTodosActionPerformed
-          preencherTabela();        
-    }//GEN-LAST:event_btnExibirTodosActionPerformed
-
-    private void jTableTipoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTipoEventoMouseClicked
-                int lin = jTableTipoEvento.getSelectedRow();
-                jTextFieldTpEvento.setText(String.valueOf(jTableTipoEvento.getValueAt(lin, 0)));
-
-    }//GEN-LAST:event_jTableTipoEventoMouseClicked
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         setVisible(false);
         FormMenu menu = new FormMenu();
         menu.setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnExibirTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExibirTodosActionPerformed
+        preencherTabelaTodos();
+    }//GEN-LAST:event_btnExibirTodosActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        preencherTabelaDescricao();
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void jTableTipoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTipoEventoMouseClicked
+        int lin = jTableTipoEvento.getSelectedRow();
+        jTextFieldCodigo.setText(jTableTipoEvento.getValueAt(lin, 0).toString());
+        jTextFieldTpEvento.setText(jTableTipoEvento.getValueAt(lin, 1).toString());
+            
+
+    }//GEN-LAST:event_jTableTipoEventoMouseClicked
+
+    private void jTextFieldDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyReleased
+        jTextFieldTpEvento.setText(jTextFieldTpEvento.getText().toUpperCase());
+    }//GEN-LAST:event_jTextFieldDescricaoKeyReleased
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        try{
+        TipoEvento tpEvento = new TipoEvento();
+        
+        tpEvento.setId_tipo_evento(Integer.parseInt(jTextFieldCodigo.getText()));
+        tpEvento.setDescricao(jTextFieldDescricao.getText());
+        
+        crud_tpEvento.alterar(tpEvento);
+        
+        preencherTabelaTodos();
+        
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+     }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void jTextFieldTpEventoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTpEventoKeyReleased
+        jTextFieldDescricao.setText(jTextFieldDescricao.getText().toUpperCase());
+    }//GEN-LAST:event_jTextFieldTpEventoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -277,6 +347,7 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Descrição;
     private javax.swing.JButton btnAlterar;
@@ -285,10 +356,12 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTipoEvento;
+    private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldTpEvento;
     // End of variables declaration//GEN-END:variables

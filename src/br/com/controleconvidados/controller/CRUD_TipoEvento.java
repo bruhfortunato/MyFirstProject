@@ -32,6 +32,27 @@ public class CRUD_TipoEvento {
         }
     }
 
+    public void alterar(TipoEvento tpEvento) throws Exception{
+        try {
+            c.conectar();
+            
+            PreparedStatement stmt = c.con.prepareStatement("UPDATE tb_tipo_evento "
+                                                + "set descricao = ? "
+                                                + "WHERE id_tipo_evento = ?");
+            
+            stmt.setInt(1, tpEvento.getId_tipo_evento());
+            stmt.setString(2, tpEvento.getDescricao());
+            
+            stmt.execute();
+            c.FecharConexao();
+            
+            JOptionPane.showMessageDialog(null, "Tipo de Evento alterado");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro " + e.getMessage(), "Alerta", 2);
+        }
+        
+    }
     public String buscarTipoEvento(String descricao) {
         String busca="";
         try {
@@ -61,39 +82,37 @@ public class CRUD_TipoEvento {
             JOptionPane.showMessageDialog(null, "ERRO..." + e.getMessage(), "Consulta de Tipo de Evento", 0);
         }
         return busca;
-
-    }
-
-    public List listar() {
-        
-   
-        try {
-            c.conectar();
-            PreparedStatement pst = c.con.prepareStatement("SELECT * "
-                    + "FROM tb_tipo_evento "
-                    + "ORDER BY descricao");
-
-            ResultSet rs = pst.executeQuery();
-
-            while (rs.next()) {
-
-                TipoEvento tpEvento = new TipoEvento();
-
-                tpEvento.setId_tipo_evento(rs.getInt("id_tipo_evento"));
-                tpEvento.setDescricao(rs.getString("descricao"));
-                tpEvento.setFg_ativo(rs.getBoolean("true"));
-                lista_tpEvento.add(tpEvento);
-
-                pst.close();
-                c.FecharConexao();
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERRO..." + e.getMessage(), "Consulta de Tipo de Evento", 0);
-        }
-        return lista_tpEvento;
     }
     
+    public List<TipoEvento> listarPorDescricao(String descricao) throws Exception{
+        
+            c.conectar();
+            List<TipoEvento> lista_tpEvento = new ArrayList<TipoEvento>();
+            
+            PreparedStatement stmt = c.con.prepareStatement(
+                    "SELECT descricao "
+                    + "FROM tb_tipo_evento "
+                    + "WHERE descricao ILIKE = ?");
+            stmt.setString(1,"%" + descricao + "%");
+            
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                TipoEvento tpEvento = new TipoEvento();
+                
+                tpEvento.setDescricao(rs.getString("descricao"));
+                tpEvento.setFg_ativo(rs.getBoolean("true"));
+                
+                lista_tpEvento.add(tpEvento);
+                
+            }
+            stmt.close();
+            
+            c.FecharConexao();
+            
+            return lista_tpEvento;
+    }
+
     
     public List listarDescricao() {
         c.conectar();
@@ -101,7 +120,7 @@ public class CRUD_TipoEvento {
    
         try {
             
-            PreparedStatement pst = c.con.prepareStatement("SELECT descricao, fg_ativo "
+            PreparedStatement pst = c.con.prepareStatement("SELECT id_tipo_evento, descricao, fg_ativo "
                     + "FROM tb_tipo_evento "
                     + "ORDER BY descricao");
 
@@ -110,7 +129,8 @@ public class CRUD_TipoEvento {
             while (rs.next()) {
 
                 TipoEvento tpEvento = new TipoEvento();
-
+                
+                tpEvento.setId_tipo_evento(rs.getInt("id_tipo_evento"));
                 tpEvento.setDescricao(rs.getString("descricao"));
                 tpEvento.setFg_ativo(rs.getBoolean("fg_ativo"));
                 lista_tpEventoDesc.add(tpEvento);
