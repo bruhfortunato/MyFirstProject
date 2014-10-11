@@ -21,8 +21,10 @@ public class FormMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCad = new javax.swing.JMenu();
         menuItemCliente = new javax.swing.JMenuItem();
+        jMenuCadTpEvento = new javax.swing.JMenuItem();
         menuCon = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuConsultTpEvento = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,17 +49,26 @@ public class FormMenu extends javax.swing.JFrame {
         });
         menuCad.add(menuItemCliente);
 
+        jMenuCadTpEvento.setText("Tipo de Evento");
+        jMenuCadTpEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuCadTpEventoActionPerformed(evt);
+            }
+        });
+        menuCad.add(jMenuCadTpEvento);
+
         jMenuBar1.add(menuCad);
 
         menuCon.setText("Consultar");
+        menuCon.add(jSeparator1);
 
-        jMenu1.setText("Cliente");
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuConsultTpEvento.setText("Tipo de Evento");
+        jMenuConsultTpEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                jMenuConsultTpEventoActionPerformed(evt);
             }
         });
-        menuCon.add(jMenu1);
+        menuCon.add(jMenuConsultTpEvento);
 
         jMenuBar1.add(menuCon);
 
@@ -86,11 +97,17 @@ public class FormMenu extends javax.swing.JFrame {
         cadCli.setVisible(true);
     }//GEN-LAST:event_menuItemClienteActionPerformed
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+    private void jMenuCadTpEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadTpEventoActionPerformed
         setVisible(false);
-        FormConsultCliente consultCli = new FormConsultCliente();
-        consultCli.setVisible(true);
-    }//GEN-LAST:event_jMenu1ActionPerformed
+        FormCadTipoEvento cad_tpEvento = new FormCadTipoEvento();
+        cad_tpEvento.setVisible(true);
+    }//GEN-LAST:event_jMenuCadTpEventoActionPerformed
+
+    private void jMenuConsultTpEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsultTpEventoActionPerformed
+        setVisible(false);
+        FormConsultaTipoEvento cons_tpEvento = new FormConsultaTipoEvento();
+        cons_tpEvento.setVisible(true);
+    }//GEN-LAST:event_jMenuConsultTpEventoActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -124,9 +141,11 @@ public class FormMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuCadTpEvento;
+    private javax.swing.JMenuItem jMenuConsultTpEvento;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuCad;
     private javax.swing.JMenu menuCon;
     private javax.swing.JMenuItem menuItemCliente;

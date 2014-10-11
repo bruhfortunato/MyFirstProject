@@ -2,11 +2,13 @@ package br.com.controleconvidados.view;
 
 import br.com.controleconvidados.controller.CRUD_TipoEvento;
 import br.com.controleconvidados.model.TipoEvento;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 public class FormCadTipoEvento extends javax.swing.JFrame {
+    CRUD_TipoEvento crud_tpEvento = new CRUD_TipoEvento();
+    TipoEvento tpEvento = new TipoEvento();
+        
+    
     public FormCadTipoEvento() {
         initComponents();
     }
@@ -17,7 +19,9 @@ public class FormCadTipoEvento extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldDescricao = new javax.swing.JTextField();
-        btnCad = new javax.swing.JButton();
+        btnSearchOrCad = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tipos de Evento");
@@ -27,10 +31,17 @@ public class FormCadTipoEvento extends javax.swing.JFrame {
 
         jLabel1.setText("Tipo de Evento");
 
-        btnCad.setText("OK");
-        btnCad.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldDescricaoKeyReleased(evt);
+            }
+        });
+
+        btnSearchOrCad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/tick.png"))); // NOI18N
+        btnSearchOrCad.setText("OK");
+        btnSearchOrCad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadActionPerformed(evt);
+                btnSearchOrCadActionPerformed(evt);
             }
         });
 
@@ -44,8 +55,8 @@ public class FormCadTipoEvento extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addComponent(btnSearchOrCad, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -53,10 +64,24 @@ public class FormCadTipoEvento extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCad))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchOrCad))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,37 +89,66 @@ public class FormCadTipoEvento extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(btnLimpar)
+                .addGap(37, 37, 37)
+                .addComponent(btnVoltar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLimpar)
+                    .addComponent(btnVoltar))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadActionPerformed
-        CRUD_TipoEvento crud_tpEvento = new CRUD_TipoEvento();
-        TipoEvento tpEvento = new TipoEvento();
-        List<TipoEvento> lista_tpEvento = new ArrayList<TipoEvento>();
-        String descricao;
+    private void btnSearchOrCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchOrCadActionPerformed
         
-        descricao = jTextFieldDescricao.getText();
+        String descricao = jTextFieldDescricao.getText();
         
-        if(lista_tpEvento.equals(descricao)){
-            JOptionPane.showMessageDialog(this, "Este tipo de evento já existe!");
-        }else{
-            tpEvento.setDescricao(jTextFieldDescricao.getText());
+        try {
+        
+        if(!"".equals(crud_tpEvento.buscarTipoEvento(descricao))){
+            JOptionPane.showMessageDialog(this, "Tipo de Evento Encontrado !");
+        } else {
+            System.out.println("Não encontrado!");
+            
+            tpEvento.setDescricao(descricao);
+            
             crud_tpEvento.inserir(tpEvento);
-            JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
+            JOptionPane.showMessageDialog(this, "Cadastro realizado !");
         }
+    
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro : "+ e.getMessage());
+        }
+        
+    }//GEN-LAST:event_btnSearchOrCadActionPerformed
 
-    }//GEN-LAST:event_btnCadActionPerformed
+    private void jTextFieldDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyReleased
+        jTextFieldDescricao.setText(jTextFieldDescricao.getText().toUpperCase());
+    }//GEN-LAST:event_jTextFieldDescricaoKeyReleased
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        jTextFieldDescricao.setText(null);
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        setVisible(false);
+        FormMenu menu = new FormMenu();
+        menu.setVisible(true);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -129,7 +183,9 @@ public class FormCadTipoEvento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCad;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnSearchOrCad;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextFieldDescricao;
