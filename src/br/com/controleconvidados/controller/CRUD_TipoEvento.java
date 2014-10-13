@@ -31,7 +31,7 @@ public class CRUD_TipoEvento {
             JOptionPane.showMessageDialog(null, "Erro " + e.getMessage(), "Alerta", 2);
         }
     }
-
+    
     public void alterar(TipoEvento tpEvento) throws Exception{
         try {
             c.conectar();
@@ -40,8 +40,8 @@ public class CRUD_TipoEvento {
                                                 + "set descricao = ? "
                                                 + "WHERE id_tipo_evento = ?");
             
-            stmt.setInt(1, tpEvento.getId_tipo_evento());
-            stmt.setString(2, tpEvento.getDescricao());
+            stmt.setString(1, tpEvento.getDescricao());
+            stmt.setInt(2, tpEvento.getId_tipo_evento());
             
             stmt.execute();
             c.FecharConexao();
@@ -53,25 +53,48 @@ public class CRUD_TipoEvento {
         }
         
     }
+    
+    public void excluir(TipoEvento tpEvento) throws Exception{
+        try {
+            c.conectar();
+            
+            PreparedStatement stmt = c.con.prepareStatement("UPDATE tb_tipo_evento "
+                                                        + "set fg_ativo = ? "
+                                                        + "WHERE id_tipo_evento = ?");
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, tpEvento.getId_tipo_evento());
+            
+            stmt.execute();
+            c.FecharConexao();
+            
+            JOptionPane.showMessageDialog(null, "Tipo de Evento Excluido");
+            
+            
+        } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Erro " + e.getMessage(), "Alerta", 2);
+        }
+    }
+    
     public String buscarTipoEvento(String descricao) {
         String busca="";
         try {
             c.conectar();
             PreparedStatement stmt = c.con.prepareStatement(
-                    "SELECT descricao "
+                    "SELECT * "
                     + "FROM tb_tipo_evento "
                     + "WHERE descricao LIKE ?");
+            
             stmt.setString(1,"%" + descricao + "%");
             
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 
-
                 TipoEvento tpEvento = new TipoEvento();
                 
                 busca = rs.getString("descricao");
-                tpEvento.setFg_ativo(rs.getBoolean("true"));
+                tpEvento.setId_tipo_evento(rs.getInt("id_tipo_evento"));
+                tpEvento.setFg_ativo(rs.getBoolean("fg_ativo"));
                 
                 
             }
@@ -84,35 +107,29 @@ public class CRUD_TipoEvento {
         return busca;
     }
     
-    public List<TipoEvento> listarPorDescricao(String descricao) throws Exception{
+    public List<TipoEvento> listarPorNome(String descricao) throws Exception{
+        c.conectar();
         
-            c.conectar();
-            List<TipoEvento> lista_tpEvento = new ArrayList<TipoEvento>();
+        PreparedStatement stmt = c.con.prepareStatement("SELECT * "
+                                                      + "FROM tb_tipo_evento "
+                                                      + "WHERE descricao LIKE ?");
             
-            PreparedStatement stmt = c.con.prepareStatement(
-                    "SELECT descricao "
-                    + "FROM tb_tipo_evento "
-                    + "WHERE descricao ILIKE = ?");
             stmt.setString(1,"%" + descricao + "%");
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next()){
+            TipoEvento tpEvento = new TipoEvento();
             
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                TipoEvento tpEvento = new TipoEvento();
-                
-                tpEvento.setDescricao(rs.getString("descricao"));
-                tpEvento.setFg_ativo(rs.getBoolean("true"));
-                
-                lista_tpEvento.add(tpEvento);
-                
-            }
-            stmt.close();
+            tpEvento.setId_tipo_evento(rs.getInt("id_tipo_evento"));
+            tpEvento.setDescricao(rs.getString("descricao"));
+            tpEvento.setFg_ativo(rs.getBoolean("fg_ativo"));
             
-            c.FecharConexao();
-            
-            return lista_tpEvento;
+            lista_tpEvento.add(tpEvento);
+        }
+        c.FecharConexao();
+        return lista_tpEvento;
     }
-
     
     public List listarDescricao() {
         c.conectar();
@@ -120,7 +137,7 @@ public class CRUD_TipoEvento {
    
         try {
             
-            PreparedStatement pst = c.con.prepareStatement("SELECT id_tipo_evento, descricao, fg_ativo "
+            PreparedStatement pst = c.con.prepareStatement("SELECT * "
                     + "FROM tb_tipo_evento "
                     + "ORDER BY descricao");
 

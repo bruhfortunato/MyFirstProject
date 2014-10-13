@@ -448,7 +448,9 @@ public class FormCadCliente extends javax.swing.JFrame {
         jToolBar1.setToolTipText("");
         jToolBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        btnSalvar.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/tick.png"))); // NOI18N
+        btnSalvar.setText("OK");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -456,7 +458,9 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jToolBar1.add(btnSalvar);
 
-        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/plus.png"))); // NOI18N
+        btnNovo.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/edit-8-xxl.png"))); // NOI18N
+        btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
@@ -464,7 +468,9 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jToolBar1.add(btnNovo);
 
-        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/arrow-180.png"))); // NOI18N
+        btnVoltar.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/back.png"))); // NOI18N
+        btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -472,7 +478,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jToolBar1.add(btnVoltar);
 
-        getContentPane().add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 70));
+        getContentPane().add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 260, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
