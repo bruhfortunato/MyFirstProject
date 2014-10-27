@@ -12,7 +12,7 @@ public class LookAndFeelUtils {
     
     public static void setLookAndFeelUtils(){
         try {
-            UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+            UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 
         } catch (IllegalAccessException | UnsupportedLookAndFeelException |
                    ClassNotFoundException | InstantiationException ex) {

@@ -1,41 +1,41 @@
 package br.com.controleconvidados.view;
 
-import br.com.controleconvidados.controller.CRUD_TipoEvento;
-import br.com.controleconvidados.model.TipoEvento;
+import br.com.controleconvidados.controller.CRUD_TipoLogradouro;
+import br.com.controleconvidados.model.Tipo_Logradouro;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class FormConsultaTipoEvento extends javax.swing.JFrame {
+public class FormConsultaTipoLofradouro extends javax.swing.JFrame {
     
     DefaultTableModel modelo = new DefaultTableModel();
-    List<TipoEvento> lista_tpEvento = new ArrayList<TipoEvento>();
-    CRUD_TipoEvento crud_tpEvento = new CRUD_TipoEvento();
+    List<Tipo_Logradouro> lista_tpLogradouro = new ArrayList<Tipo_Logradouro>();
+    CRUD_TipoLogradouro crud_tpLogradouro = new CRUD_TipoLogradouro();
     String desc = "";
     
     public void limparTela() {
         jTextFieldDescricao.setText(null);
-        jTextFieldTpEvento.setText(null);
+        jTextFieldTpLogradouro.setText(null);
         jTextFieldCodigo.setText(null);
 
     }
 
     public void preencherTabelaTodos() {
-        modelo = (DefaultTableModel) jTableTipoEvento.getModel();
+        modelo = (DefaultTableModel) jTableTipoLogradouro.getModel();
         modelo.setRowCount(0);
 
         try {
             modelo.setRowCount(0);
-            lista_tpEvento = crud_tpEvento.listarDescricao();
+            lista_tpLogradouro = crud_tpLogradouro.listarDescricao();
 
-            for (int i = 0; i < lista_tpEvento.size(); i++) {
+            for (int i = 0; i < lista_tpLogradouro.size(); i++) {
 
-                if (lista_tpEvento.get(i).isFg_ativo()) {
+                if (lista_tpLogradouro.get(i).isFg_ativo()) {
 
                     modelo.addRow(new Object[]{
-                        lista_tpEvento.get(i).getId_tipo_evento(),
-                        lista_tpEvento.get(i).getDescricao()
+                        lista_tpLogradouro.get(i).getId_tipo_logradouro(),
+                        lista_tpLogradouro.get(i).getDescricao()
 
                     });
                 }
@@ -47,16 +47,16 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
 
     public void preencherTabelaDescricao() throws Exception {
 
-        modelo = (DefaultTableModel) jTableTipoEvento.getModel();
+        modelo = (DefaultTableModel) jTableTipoLogradouro.getModel();
         modelo.setRowCount(0);
 
         try {
             
-            for (TipoEvento tpEvento : crud_tpEvento.listarPorNome(desc)) {
+            for (Tipo_Logradouro tpLogradouro : crud_tpLogradouro.listarPorNome(desc)) {
                 modelo.setRowCount(0);
                 Object linha[] = new Object[2];
-                linha[0] = tpEvento.getId_tipo_evento();
-                linha[1] = tpEvento.getDescricao();
+                linha[0] = tpLogradouro.getId_tipo_logradouro();
+                linha[1] = tpLogradouro.getDescricao();
 
                 modelo.addRow(linha);
 
@@ -66,7 +66,7 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
         }
     }
 
-    public FormConsultaTipoEvento() {
+    public FormConsultaTipoLofradouro() {
 
         initComponents();
     }
@@ -80,11 +80,11 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
         jTextFieldDescricao = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableTipoEvento = new javax.swing.JTable();
+        jTableTipoLogradouro = new javax.swing.JTable();
         btnExibirTodos = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldTpEvento = new javax.swing.JTextField();
+        jTextFieldTpLogradouro = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldCodigo = new javax.swing.JTextField();
         jToolBar1 = new javax.swing.JToolBar();
@@ -96,7 +96,7 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar Tipo de Evento"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar Tipo de Logradouro"));
 
         Descrição.setText("Descricao");
 
@@ -118,8 +118,8 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
             }
         });
 
-        jTableTipoEvento.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
-        jTableTipoEvento.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTipoLogradouro.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
+        jTableTipoLogradouro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -135,15 +135,15 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTableTipoEvento.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableTipoLogradouro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableTipoEventoMouseClicked(evt);
+                jTableTipoLogradouroMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableTipoEvento);
-        if (jTableTipoEvento.getColumnModel().getColumnCount() > 0) {
-            jTableTipoEvento.getColumnModel().getColumn(0).setMinWidth(50);
-            jTableTipoEvento.getColumnModel().getColumn(0).setMaxWidth(50);
+        jScrollPane1.setViewportView(jTableTipoLogradouro);
+        if (jTableTipoLogradouro.getColumnModel().getColumnCount() > 0) {
+            jTableTipoLogradouro.getColumnModel().getColumn(0).setMinWidth(50);
+            jTableTipoLogradouro.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
         btnExibirTodos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -192,11 +192,11 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Editar e Cadastrar"));
 
-        jLabel1.setText("Tipo de Evento");
+        jLabel1.setText("Tipo de Logradouro");
 
-        jTextFieldTpEvento.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextFieldTpLogradouro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldTpEventoKeyReleased(evt);
+                jTextFieldTpLogradouroKeyReleased(evt);
             }
         });
 
@@ -219,7 +219,7 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldTpEvento)))
+                        .addComponent(jTextFieldTpLogradouro)))
                 .addGap(90, 90, 90))
         );
         jPanel2Layout.setVerticalGroup(
@@ -232,7 +232,7 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldTpEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldTpLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
 
@@ -340,7 +340,7 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
         try {
             desc = jTextFieldDescricao.getText();
 
-            TipoEvento tpEvento = new TipoEvento();
+            Tipo_Logradouro tpLogradouro = new Tipo_Logradouro();
 
             if ("".equals(jTextFieldDescricao.getText())) {
                 modelo.setRowCount(0);
@@ -349,14 +349,14 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
 
             } else {
 
-                if (desc.equals(crud_tpEvento.buscarTipoEventoAtivo(desc))) {
+                if (desc.equals(crud_tpLogradouro.buscarTipoLogradouro(desc))) {
                     
                     modelo.setRowCount(0);
                     preencherTabelaDescricao();
 
                 }else{
                    
-                    JOptionPane.showMessageDialog(null, "Tipo de evento não encontrado! ");
+                    JOptionPane.showMessageDialog(null, "Tipo de Logradouro não encontrado! ");
                     modelo.setRowCount(0);
                 
                 }
@@ -367,31 +367,31 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void jTableTipoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTipoEventoMouseClicked
-        int lin = jTableTipoEvento.getSelectedRow();
-        jTextFieldCodigo.setText(jTableTipoEvento.getValueAt(lin, 0).toString());
-        jTextFieldTpEvento.setText(jTableTipoEvento.getValueAt(lin, 1).toString());
+    private void jTableTipoLogradouroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTipoLogradouroMouseClicked
+        int lin = jTableTipoLogradouro.getSelectedRow();
+        jTextFieldCodigo.setText(jTableTipoLogradouro.getValueAt(lin, 0).toString());
+        jTextFieldTpLogradouro.setText(jTableTipoLogradouro.getValueAt(lin, 1).toString());
 
 
-    }//GEN-LAST:event_jTableTipoEventoMouseClicked
+    }//GEN-LAST:event_jTableTipoLogradouroMouseClicked
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
 
-            if (!"".equals(crud_tpEvento.buscarTipoEventoAtivo(jTextFieldTpEvento.getText()))) {
+            if (!"".equals(crud_tpLogradouro.buscarTipoLogradouro(jTextFieldTpLogradouro.getText()))) {
+                
+                Tipo_Logradouro tpLogradouro = new Tipo_Logradouro();
 
-                TipoEvento tpEvento = new TipoEvento();
+                tpLogradouro.setId_tipo_logradouro(Integer.parseInt(jTextFieldCodigo.getText()));
+                tpLogradouro.setDescricao(jTextFieldTpLogradouro.getText());
 
-                tpEvento.setId_tipo_evento(Integer.parseInt(jTextFieldCodigo.getText()));
-                tpEvento.setDescricao(jTextFieldTpEvento.getText());
-
-                crud_tpEvento.alterarDescricao(tpEvento);
+                crud_tpLogradouro.alterarDescricao(tpLogradouro);
 
                 limparTela();
                 preencherTabelaTodos();
 
             } else {
-                JOptionPane.showMessageDialog(this, "Tipo de Evento já existe !");
+                JOptionPane.showMessageDialog(this, "Tipo de Logradouro já existe !");
                 limparTela();
 
             }
@@ -401,9 +401,9 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void jTextFieldTpEventoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTpEventoKeyReleased
-        jTextFieldTpEvento.setText(jTextFieldTpEvento.getText().toUpperCase());
-    }//GEN-LAST:event_jTextFieldTpEventoKeyReleased
+    private void jTextFieldTpLogradouroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTpLogradouroKeyReleased
+        jTextFieldTpLogradouro.setText(jTextFieldTpLogradouro.getText().toUpperCase());
+    }//GEN-LAST:event_jTextFieldTpLogradouroKeyReleased
 
     private void jTextFieldDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyReleased
         jTextFieldDescricao.setText(jTextFieldDescricao.getText().toUpperCase());
@@ -411,12 +411,13 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
-            TipoEvento tpEvento = new TipoEvento();
+            
+            Tipo_Logradouro tpLogradouro = new Tipo_Logradouro();
 
-            tpEvento.setId_tipo_evento(Integer.parseInt(jTextFieldCodigo.getText()));
-            tpEvento.setFg_ativo(false);
+            tpLogradouro.setId_tipo_logradouro(Integer.parseInt(jTextFieldCodigo.getText()));
+            tpLogradouro.setFg_ativo(false);
 
-            crud_tpEvento.excluir(tpEvento);
+            crud_tpLogradouro.excluir(tpLogradouro);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
@@ -434,31 +435,36 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         try {
 
-            TipoEvento tpEvento = new TipoEvento();
-            String descricao = jTextFieldTpEvento.getText();
+            
+            Tipo_Logradouro tpLogradouro = new Tipo_Logradouro();
+
+            String descricao = jTextFieldTpLogradouro.getText();
             int codigo = 0;
            
-                if ("".equals(jTextFieldTpEvento.getText())) {
-                    JOptionPane.showMessageDialog(null, "O tipo de evento não foi digitado!");
+                if ("".equals(jTextFieldTpLogradouro.getText())) {
+                    JOptionPane.showMessageDialog(null, "O tipo de logradouro não foi digitado!");
                     limparTela();
                     modelo.setRowCount(0);
                 }
-                else if (jTextFieldTpEvento.getText().equals(crud_tpEvento.buscarTipoEventoInativos(descricao))) {
+                else if (jTextFieldTpLogradouro.getText().equals(crud_tpLogradouro.buscarTipoLogradouro(descricao))) {
                      
-                     tpEvento.setId_tipo_evento(crud_tpEvento.buscarCodigoPorDescricaoInativo(jTextFieldTpEvento.getText()));
-                     tpEvento.setFg_ativo(true);
-                     crud_tpEvento.alterarFgAtivo(tpEvento);
-               } 
-                else if (!jTextFieldTpEvento.getText().equals(crud_tpEvento.buscarTipoEventoInativos(descricao))) {
-                    tpEvento.setDescricao(jTextFieldTpEvento.getText());
-                    tpEvento.setFg_ativo(true);
+                     tpLogradouro.setId_tipo_logradouro(crud_tpLogradouro.buscarCodigoPorDescricaoInativo(jTextFieldTpLogradouro.getText()));
+                     tpLogradouro.setFg_ativo(true);
+                     
+                     crud_tpLogradouro.alterarFgAtivo(tpLogradouro);               
+                } 
+                
+                else if (!jTextFieldTpLogradouro.getText().equals(crud_tpLogradouro.buscarTipoLogradouroInativos(descricao))) {
+                    
+                    tpLogradouro.setDescricao(jTextFieldTpLogradouro.getText());
+                    tpLogradouro.setFg_ativo(true);
 
-                    crud_tpEvento.inserir(tpEvento);
+                    crud_tpLogradouro.inserir(tpLogradouro);
                     limparTela();
                     preencherTabelaTodos();
               }
                 else {
-                       JOptionPane.showMessageDialog(null, "Tipo de evento já existe! ");
+                       JOptionPane.showMessageDialog(null, "Tipo de logradouro já existe! ");
                     }
         
         } catch (Exception e) {
@@ -489,20 +495,20 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormConsultaTipoEvento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormConsultaTipoLofradouro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormConsultaTipoEvento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormConsultaTipoLofradouro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormConsultaTipoEvento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormConsultaTipoLofradouro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormConsultaTipoEvento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormConsultaTipoLofradouro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormConsultaTipoEvento().setVisible(true);
+                new FormConsultaTipoLofradouro().setVisible(true);
             }
         });
     }
@@ -522,10 +528,10 @@ public class FormConsultaTipoEvento extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableTipoEvento;
+    private javax.swing.JTable jTableTipoLogradouro;
     private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldDescricao;
-    private javax.swing.JTextField jTextFieldTpEvento;
+    private javax.swing.JTextField jTextFieldTpLogradouro;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,10 +21,11 @@ public class FormMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCad = new javax.swing.JMenu();
         menuItemCliente = new javax.swing.JMenuItem();
-        jMenuCadTpEvento = new javax.swing.JMenuItem();
+        jMenuCadTpLogradouro = new javax.swing.JMenuItem();
         menuCon = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuConsultTpEvento = new javax.swing.JMenuItem();
+        jMenuConsultConsultTpLogradouro = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -36,7 +37,7 @@ public class FormMenu extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 537, Short.MAX_VALUE)
+            .addGap(0, 539, Short.MAX_VALUE)
         );
 
         menuCad.setText("Cadastrar");
@@ -49,13 +50,13 @@ public class FormMenu extends javax.swing.JFrame {
         });
         menuCad.add(menuItemCliente);
 
-        jMenuCadTpEvento.setText("Tipo de Evento");
-        jMenuCadTpEvento.addActionListener(new java.awt.event.ActionListener() {
+        jMenuCadTpLogradouro.setText("Tipo de Logradouro");
+        jMenuCadTpLogradouro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuCadTpEventoActionPerformed(evt);
+                jMenuCadTpLogradouroActionPerformed(evt);
             }
         });
-        menuCad.add(jMenuCadTpEvento);
+        menuCad.add(jMenuCadTpLogradouro);
 
         jMenuBar1.add(menuCad);
 
@@ -69,6 +70,14 @@ public class FormMenu extends javax.swing.JFrame {
             }
         });
         menuCon.add(jMenuConsultTpEvento);
+
+        jMenuConsultConsultTpLogradouro.setText("Tipo de Logradouro");
+        jMenuConsultConsultTpLogradouro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuConsultConsultTpLogradouroActionPerformed(evt);
+            }
+        });
+        menuCon.add(jMenuConsultConsultTpLogradouro);
 
         jMenuBar1.add(menuCon);
 
@@ -92,22 +101,25 @@ public class FormMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemClienteActionPerformed
-        setVisible(false);
+        
         FormCadCliente cadCli = new FormCadCliente();
         cadCli.setVisible(true);
     }//GEN-LAST:event_menuItemClienteActionPerformed
 
-    private void jMenuCadTpEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadTpEventoActionPerformed
-        setVisible(false);
-        FormCadTipoEvento cad_tpEvento = new FormCadTipoEvento();
-        cad_tpEvento.setVisible(true);
-    }//GEN-LAST:event_jMenuCadTpEventoActionPerformed
-
     private void jMenuConsultTpEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsultTpEventoActionPerformed
-        setVisible(false);
+        
         FormConsultaTipoEvento cons_tpEvento = new FormConsultaTipoEvento();
         cons_tpEvento.setVisible(true);
     }//GEN-LAST:event_jMenuConsultTpEventoActionPerformed
+
+    private void jMenuCadTpLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadTpLogradouroActionPerformed
+ 
+    }//GEN-LAST:event_jMenuCadTpLogradouroActionPerformed
+
+    private void jMenuConsultConsultTpLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsultConsultTpLogradouroActionPerformed
+        FormConsultaTipoLofradouro cons_tpLofradouro = new FormConsultaTipoLofradouro();
+        cons_tpLofradouro.setVisible(true);
+    }//GEN-LAST:event_jMenuConsultConsultTpLogradouroActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -142,7 +154,8 @@ public class FormMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuCadTpEvento;
+    private javax.swing.JMenuItem jMenuCadTpLogradouro;
+    private javax.swing.JMenuItem jMenuConsultConsultTpLogradouro;
     private javax.swing.JMenuItem jMenuConsultTpEvento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;

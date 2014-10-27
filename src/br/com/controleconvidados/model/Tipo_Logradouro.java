@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Tipo_Logradouro {
     int id_tipo_logradouro;
     String descricao;
+    boolean fg_ativo;
 
     public static ArrayList<Tipo_Logradouro> TipoL = new ArrayList<Tipo_Logradouro>();
     
@@ -22,6 +23,14 @@ public class Tipo_Logradouro {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public boolean isFg_ativo() {
+        return fg_ativo;
+    }
+
+    public void setFg_ativo(boolean fg_ativo) {
+        this.fg_ativo = fg_ativo;
     }
     
     

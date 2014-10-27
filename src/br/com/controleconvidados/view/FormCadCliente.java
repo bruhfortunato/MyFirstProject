@@ -20,6 +20,7 @@ import br.com.controleconvidados.model.Estado;
 import br.com.controleconvidados.model.TipoContato_Contato;
 import br.com.controleconvidados.model.Tipo_Contato;
 import br.com.controleconvidados.model.Tipo_Logradouro;
+import br.com.controleconvidados.utils.LookAndFeelUtils;
 
 public class FormCadCliente extends javax.swing.JFrame {
 
@@ -36,9 +37,6 @@ public class FormCadCliente extends javax.swing.JFrame {
     CRUD_TipoLogradouro crudTpLogradouro = new CRUD_TipoLogradouro();
     
     int linha;
-    
-    
-    //CRUD_Contato crudCont = new CRUD_Contato();
     
     List<TipoContato_Contato> listaContatoTabela = new ArrayList<TipoContato_Contato>();
     List<Contato> listaContatos = new ArrayList<Contato>();
@@ -67,6 +65,9 @@ public class FormCadCliente extends javax.swing.JFrame {
             }
  
     public FormCadCliente() {
+        
+        LookAndFeelUtils.setLookAndFeelUtils();
+        LookAndFeelUtils.setWindowIcon(this,"/br/com/controleconvidados/images/1413613694_002.png");
         
         initComponents();
         
@@ -192,7 +193,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanelCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 290, 160));
+        getContentPane().add(jPanelCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 290, 160));
 
         jPanelContato.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Contato"));
         jPanelContato.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -205,7 +206,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jPanelContato.add(cBoxTipoContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 28, 160, 30));
 
-        btnADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/plus-circle.png"))); // NOI18N
+        btnADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/1413614028_Add.png"))); // NOI18N
         btnADD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnADDActionPerformed(evt);
@@ -213,6 +214,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jPanelContato.add(btnADD, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 50, 30));
 
+        jTableContato.setFont(new java.awt.Font("Baskerville Old Face", 1, 14)); // NOI18N
         jTableContato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -248,23 +250,27 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jPanelContato.add(jTextFieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 140, 30));
 
-        btnSubt.setText("Excluir ");
+        btnSubt.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnSubt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/1413608271_Delete.png"))); // NOI18N
+        btnSubt.setText("Excluir");
         btnSubt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubtActionPerformed(evt);
             }
         });
-        jPanelContato.add(btnSubt, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 90, 30));
+        jPanelContato.add(btnSubt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 100, 20));
 
+        jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/1413608197_eraser.png"))); // NOI18N
         jButton1.setText("Excluir Tudo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanelContato.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 110, 30));
+        jPanelContato.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 150, 20));
 
-        getContentPane().add(jPanelContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 470, 260));
+        getContentPane().add(jPanelContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 470, 260));
 
         jPanelCli.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoa"));
 
@@ -305,7 +311,7 @@ public class FormCadCliente extends javax.swing.JFrame {
                 .addGap(38, 38, 38))
         );
 
-        getContentPane().add(jPanelCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 290, 80));
+        getContentPane().add(jPanelCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 290, 80));
 
         jPanelEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Endereço"));
 
@@ -448,9 +454,9 @@ public class FormCadCliente extends javax.swing.JFrame {
         jToolBar1.setToolTipText("");
         jToolBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        btnSalvar.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/tick.png"))); // NOI18N
-        btnSalvar.setText("OK");
+        btnSalvar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/1413613592_061.png"))); // NOI18N
+        btnSalvar.setText("Cadastrar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -458,8 +464,8 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jToolBar1.add(btnSalvar);
 
-        btnNovo.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
-        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/edit-8-xxl.png"))); // NOI18N
+        btnNovo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/1413607705_plus_16.png"))); // NOI18N
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -468,8 +474,8 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jToolBar1.add(btnNovo);
 
-        btnVoltar.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
-        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/back.png"))); // NOI18N
+        btnVoltar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/controleconvidados/images/1413608415_go-back.png"))); // NOI18N
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -478,7 +484,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         });
         jToolBar1.add(btnVoltar);
 
-        getContentPane().add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 260, 70));
+        getContentPane().add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -488,9 +494,7 @@ public class FormCadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        setVisible(false);
-        FormMenu menu = new FormMenu();
-        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void cBoxTipoContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxTipoContatoActionPerformed
@@ -754,7 +758,7 @@ public class FormCadCliente extends javax.swing.JFrame {
         int id_logradouro;
         CRUD_TipoLogradouro tipoL = new CRUD_TipoLogradouro();
         List<Tipo_Logradouro> listaTipoLogradouro = (List < Tipo_Logradouro>)
-        tipoL.listar();
+        tipoL.listarDescricao();
         
         for(int i=0; i<listaTipoLogradouro.size(); i++){
             cBoxTipoLogradouro.addItem(listaTipoLogradouro.get(i).getDescricao());
